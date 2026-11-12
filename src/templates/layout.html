@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{canonical}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{site_name}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{canonical}}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121110" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+{{head_extra}}
+</head>
+<body class="{{body_class}}">
+<div class="utility">
+  <div class="frame utility-row">
+    <span class="utility-side" data-today></span>
+    <span class="utility-center">Unofficial GTA 6 field guide</span>
+    <span class="utility-side utility-right countdown-mini" data-launch="{{launch}}"></span>
+  </div>
+</div>
+<header class="masthead">
+  <div class="frame">
+    <a class="wordmark" href="/">Day One Atlas</a>
+    <p class="motto">Maps, checklists &amp; guides for Leonida &middot; updated live</p>
+  </div>
+</header>
+<nav class="sections" aria-label="Sections">
+  <div class="frame sections-row">{{nav}}</div>
+</nav>
+<main class="frame main">
+{{body}}
+</main>
+<footer class="site-footer">
+  <div class="frame">
+    <a class="wordmark wordmark-sm" href="/">Day One Atlas</a>
+    <p class="footer-links"><a href="/map/">Map</a><a href="/checklist/">Checklist</a><a href="/guides/">Guides</a><a href="/updates/">Live log</a><a href="/submit/">Submit a find</a><a href="/about/">About</a><a href="{{tip_url}}" rel="noopener">Support the map</a></p>
+    <p class="fine">{{disclaimer}}</p>
+    <p class="fine">{{affiliate_note}}</p>
+    <p class="fine">&copy; {{year}} {{site_name}}</p>
+  </div>
+</footer>
+<script src="/assets/app.js" defer></script>
+{{scripts}}
+</body>
+</html>

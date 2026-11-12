@@ -1,0 +1,43 @@
+{
+  "title": "GTA 6 first 48 hours checklist",
+  "intro": "Everything worth doing in your first two days, in a sensible order. Tick things off as you go. Items tagged unconfirmed will be checked against the released game.",
+  "sections": [
+    {
+      "title": "Before you hit play",
+      "items": [
+        { "id": "display-mode", "text": "Pick your display mode (performance or quality) before you start", "link": "/guides/gta-6-best-settings/", "verified": false },
+        { "id": "camera-settings", "text": "Turn down motion blur and camera shake if they bother you", "link": "/guides/gta-6-best-settings/", "verified": false },
+        { "id": "subtitles", "text": "Turn on subtitles so you don't miss mission instructions in loud scenes", "verified": false },
+        { "id": "bonuses", "text": "Claim any pre-order or edition bonuses before your first save", "verified": false }
+      ]
+    },
+    {
+      "title": "The first few hours",
+      "items": [
+        { "id": "opening", "text": "Play through the opening missions until the map opens up", "verified": false },
+        { "id": "first-safehouse", "text": "Find your first safehouse and save there", "link": "/map/", "verified": false },
+        { "id": "phone", "text": "Open the phone and check which apps and contacts you already have", "verified": false },
+        { "id": "first-shop", "text": "Find the nearest weapon and clothing shops", "link": "/map/", "verified": false },
+        { "id": "keep-car", "text": "Pick a car worth keeping and learn how to store it", "verified": false }
+      ]
+    },
+    {
+      "title": "Day one evening",
+      "items": [
+        { "id": "first-money", "text": "Try one early money method and see if it fits how you play", "link": "/guides/gta-6-make-money-fast/", "verified": false },
+        { "id": "both-leads", "text": "Learn when you can switch between Lucia and Jason", "verified": false },
+        { "id": "first-collectible", "text": "Find your first collectible so you know what to look for", "link": "/guides/gta-6-collectibles/", "verified": false },
+        { "id": "side-activity", "text": "Try one side activity that pays", "verified": false }
+      ]
+    },
+    {
+      "title": "Day two",
+      "items": [
+        { "id": "visit-regions", "text": "Drive to every region once to reveal the map", "link": "/guides/gta-6-map-regions/", "verified": false },
+        { "id": "upgrade", "text": "Spend your first real money on the upgrade that helps most", "verified": false },
+        { "id": "property", "text": "Check whether any property or business is worth buying early", "verified": false },
+        { "id": "secrets", "text": "Hunt one secret or easter egg from the map", "link": "/map/", "verified": false }
+      ]
+    }
+  ]
+}

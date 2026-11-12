@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" width="2048" height="2048">
+  <defs>
+    <radialGradient id="sea" cx="55%" cy="55%" r="75%">
+      <stop offset="0" stop-color="#12344a"/>
+      <stop offset="1" stop-color="#081521"/>
+    </radialGradient>
+    <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2c3b2f"/>
+      <stop offset="1" stop-color="#3a4632"/>
+    </linearGradient>
+    <pattern id="grid" width="128" height="128" patternUnits="userSpaceOnUse">
+      <path d="M128 0H0V128" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="2048" height="2048" fill="url(#sea)"/>
+  <path fill="url(#land)" stroke="#6f8a6a" stroke-opacity="0.5" stroke-width="4"
+        d="M150 300 L700 260 L1100 230 L1500 260 L1620 330 L1600 520 L1560 760 L1540 1000 L1500 1250 L1440 1450 L1340 1600 L1240 1640 L1150 1560 L1080 1400 L980 1200 L900 980 L880 760 L820 600 L700 560 L520 600 L360 560 L200 520 L140 420 Z"/>
+  <path fill="#2f4a3e" opacity="0.7" d="M1000 980 Q1150 900 1320 1000 Q1360 1180 1240 1300 Q1080 1280 1020 1150 Z"/>
+  <g fill="url(#land)" stroke="#6f8a6a" stroke-opacity="0.5" stroke-width="3">
+    <ellipse cx="1190" cy="1700" rx="46" ry="18" transform="rotate(-25 1190 1700)"/>
+    <ellipse cx="1100" cy="1745" rx="54" ry="16" transform="rotate(-20 1100 1745)"/>
+    <ellipse cx="1000" cy="1790" rx="48" ry="14" transform="rotate(-15 1000 1790)"/>
+    <ellipse cx="905" cy="1825" rx="40" ry="13" transform="rotate(-10 905 1825)"/>
+    <ellipse cx="820" cy="1850" rx="30" ry="12"/>
+  </g>
+  <rect width="2048" height="2048" fill="url(#grid)"/>
+  <text x="1024" y="1990" fill="#ffffff" fill-opacity="0.25" font-family="sans-serif" font-size="44" font-weight="700" text-anchor="middle" letter-spacing="10">PLACEHOLDER MAP · SWAP AT LAUNCH</text>
+</svg>

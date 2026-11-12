@@ -1,0 +1,10 @@
+{
+  "markers": [
+    { "id": "vice-city", "category": "region", "title": "Vice City", "pos": [1430, 1300], "desc": "The neon city at the heart of Leonida.", "verified": false },
+    { "id": "leonida-keys", "category": "region", "title": "Leonida Keys", "pos": [1010, 1790], "desc": "Island chain off the southern tip.", "verified": false },
+    { "id": "grassrivers", "category": "region", "title": "Grassrivers", "pos": [1180, 1120], "desc": "Wetlands and swamp country.", "verified": false },
+    { "id": "port-gellhorn", "category": "region", "title": "Port Gellhorn", "pos": [470, 470], "desc": "Faded beach town on the gulf side.", "verified": false },
+    { "id": "ambrosia", "category": "region", "title": "Ambrosia", "pos": [980, 420], "desc": "Industrial town.", "verified": false },
+    { "id": "mount-kalaga", "category": "region", "title": "Mount Kalaga National Park", "pos": [1330, 330], "desc": "Backcountry wilderness.", "verified": false }
+  ]
+}

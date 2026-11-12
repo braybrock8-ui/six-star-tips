@@ -1,0 +1,16 @@
+{
+  "image": "/images/map-placeholder.svg",
+  "width": 2048,
+  "height": 2048,
+  "placeholder": "Placeholder map. Region labels are approximate until the real map is out.",
+  "categories": [
+    { "id": "region", "label": "Regions", "color": "#e9ecf1", "icon": "", "style": "label" },
+    { "id": "safehouse", "label": "Safehouses", "color": "#3ad1c6", "icon": "⌂" },
+    { "id": "money", "label": "Money spots", "color": "#7ee07e", "icon": "$" },
+    { "id": "collectible", "label": "Collectibles", "color": "#ffb347", "icon": "◆" },
+    { "id": "weapon", "label": "Weapons", "color": "#ff7a59", "icon": "✦" },
+    { "id": "vehicle", "label": "Vehicles", "color": "#8ab4ff", "icon": "▲" },
+    { "id": "shop", "label": "Shops & services", "color": "#c79bff", "icon": "●" },
+    { "id": "secret", "label": "Secrets & easter eggs", "color": "#ff5c8a", "icon": "?" }
+  ]
+}

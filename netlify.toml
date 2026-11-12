@@ -1,0 +1,13 @@
+[build]
+  command = "python3 build.py"
+  publish = "dist"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=60"
