@@ -24,7 +24,7 @@ Don't try to be the wiki. The big wikis and IGN will own "GTA 6 walkthrough." Ow
 
 **Day 2–4: money plumbing**
 - [ ] **Apply to Google AdSense now.** Approval can take days to weeks, and a site with a few real pages has a better shot. Once approved, put the script in `site.json` → `headHtml` and set `showAdPlaceholders` to `false`.
-- [ ] Set up a Ko-fi or Buy Me a Coffee page and put the link in `tipUrl`.
+- [ ] Set up the tip jar: create a Ko-fi, PayPal.me, Cash App, Venmo or Buy Me a Coffee account and put your handle (just the name, not the full link) under `tipJar` in `data/site.json`. The `/tip/` page shows a button for each handle you fill in.
 - [ ] Join the Amazon Associates program for controller, headset and SSD affiliate links in the settings guide. Keep the affiliate note in the footer.
 - [ ] Later: once you have sustained traffic, apply to higher-paying ad networks (Ezoic has low minimums; Raptive and Mediavine need much more traffic).
 - [ ] Add privacy-friendly analytics (Plausible, Umami or Cloudflare Web Analytics) to `headHtml`. You need to see which pages are taking off.

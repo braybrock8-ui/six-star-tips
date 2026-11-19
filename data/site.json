@@ -1,14 +1,24 @@
 {
   "name": "Day One Atlas",
   "url": "https://dayoneatlas.example",
-  "headline": "The GTA 6 day-one map & checklist",
-  "tagline": "Unofficial map, checklist and guides for GTA 6, updated live from launch day.",
+  "headline": "The GTA 6 field guide",
+  "tagline": "Unofficial GTA 6 map, cheats, money methods and guides. Checked against multiple sources and updated as new info comes out.",
   "launchDate": "2026-11-19T00:00:00-05:00",
-  "launchNote": "Release times vary by platform and region.",
-  "tipUrl": "https://ko-fi.com/YOURNAME",
+  "launchNote": "GTA 6 unlocked at midnight local time on November 19, 2026.",
   "contactEmail": "hello@YOURDOMAIN.com",
   "showAdPlaceholders": true,
   "headHtml": "",
+  "tipJar": {
+    "headline": "Keep the atlas free",
+    "message": "Day One Atlas is one person checking every fact against multiple sources so you don't waste your evening on a fake cheat code. If it saved you time, a tip keeps it ad-light and updated.",
+    "amounts": [3, 5, 10, 25],
+    "defaultAmount": 5,
+    "kofi": "",
+    "buymeacoffee": "",
+    "paypal": "",
+    "cashapp": "",
+    "venmo": ""
+  },
   "disclaimer": "Day One Atlas is an unofficial fan guide. It is not affiliated with, endorsed by, or sponsored by Rockstar Games or Take-Two Interactive. Grand Theft Auto and related names are trademarks of their respective owners.",
   "affiliateNote": "Some links on this site are affiliate links. If you buy through them we may earn a small commission at no extra cost to you."
 }

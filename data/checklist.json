@@ -1,42 +1,49 @@
 {
   "title": "GTA 6 first 48 hours checklist",
-  "intro": "Everything worth doing in your first two days, in a sensible order. Tick things off as you go. Items tagged unconfirmed will be checked against the released game.",
+  "intro": "The best order to do things in your first two days, built from launch-day guides and checked against multiple sources. Tick things off as you go.",
   "sections": [
     {
       "title": "Before you hit play",
       "items": [
-        { "id": "display-mode", "text": "Pick your display mode (performance or quality) before you start", "link": "/guides/gta-6-best-settings/", "verified": false },
-        { "id": "camera-settings", "text": "Turn down motion blur and camera shake if they bother you", "link": "/guides/gta-6-best-settings/", "verified": false },
-        { "id": "subtitles", "text": "Turn on subtitles so you don't miss mission instructions in loud scenes", "verified": false },
-        { "id": "bonuses", "text": "Claim any pre-order or edition bonuses before your first save", "verified": false }
+        { "id": "updates", "text": "Leave automatic updates on so the day-one patches install", "link": "/guides/gta-6-best-settings/", "verified": true },
+        { "id": "brightness", "text": "Run Brightness Calibration (nights are very dark) and turn on subtitles", "link": "/guides/gta-6-best-settings/", "verified": true },
+        { "id": "hdr", "text": "If screenshots look washed out, check your HDR settings", "link": "/guides/gta-6-best-settings/", "verified": true },
+        { "id": "bonus", "text": "Buy digitally by November 19 to get the Vintage Vice City Pack and a month of GTA+", "link": "/guides/gta-6-release-editions/", "verified": true }
       ]
     },
     {
-      "title": "The first few hours",
+      "title": "Chapter 1: the Keys",
       "items": [
-        { "id": "opening", "text": "Play through the opening missions until the map opens up", "verified": false },
-        { "id": "first-safehouse", "text": "Find your first safehouse and save there", "link": "/map/", "verified": false },
-        { "id": "phone", "text": "Open the phone and check which apps and contacts you already have", "verified": false },
-        { "id": "first-shop", "text": "Find the nearest weapon and clothing shops", "link": "/map/", "verified": false },
-        { "id": "keep-car", "text": "Pick a car worth keeping and learn how to store it", "verified": false }
+        { "id": "gone-fishing", "text": "Finish *Gone Fishing* to open up the world", "verified": true },
+        { "id": "stash", "text": "Keep spare cash in the stash at Jason's safehouse until you can bank", "link": "/guides/gta-6-first-48-hours/", "verified": true },
+        { "id": "fishing-shacks", "text": "Loot the Kingfishers: Fishing Shacks operation north-west of Key Lento (close to $2,000)", "link": "/guides/gta-6-make-money-fast/", "verified": true },
+        { "id": "shirley", "text": "Finish Shirley's rum errand before you investigate the strange noises behind Three Sheets", "link": "/guides/gta-6-make-money-fast/", "verified": true },
+        { "id": "fence", "text": "Sell product to Brian or Donnie quickly, after comparing their prices", "verified": true },
+        { "id": "lost-drugs", "text": "After *Clean Up After Donnie*, collect the four lost drug packages (about $900 each)", "link": "/guides/gta-6-make-money-fast/", "verified": true },
+        { "id": "buckme", "text": "Open BuckMe in the *Buck Me* mission and deposit everything", "verified": true },
+        { "id": "savings", "text": "Reach the first $5,000 savings goal", "verified": true },
+        { "id": "plane", "text": "Loot the crashed plane in the field south of Hamlet", "link": "/guides/gta-6-make-money-fast/", "verified": true },
+        { "id": "kenton", "text": "Start Kenton's treasure dives after *Island Dreams*", "verified": true },
+        { "id": "joey", "text": "After *Just a Scratch*, remember you can call Joey to bring your car", "link": "/guides/gta-6-getting-around/", "verified": true }
       ]
     },
     {
-      "title": "Day one evening",
+      "title": "Chapter 2: Port Gellhorn",
       "items": [
-        { "id": "first-money", "text": "Try one early money method and see if it fits how you play", "link": "/guides/gta-6-make-money-fast/", "verified": false },
-        { "id": "both-leads", "text": "Learn when you can switch between Lucia and Jason", "verified": false },
-        { "id": "first-collectible", "text": "Find your first collectible so you know what to look for", "link": "/guides/gta-6-collectibles/", "verified": false },
-        { "id": "side-activity", "text": "Try one side activity that pays", "verified": false }
+        { "id": "moses", "text": "Sell trackerless cars to Moses ($1,000 to $3,000 each)", "link": "/guides/gta-6-make-money-fast/", "verified": true },
+        { "id": "switch", "text": "Unlock free switching between Jason and Lucia (hold D-pad Right, press R1 / RB)", "link": "/guides/gta-6-jason-lucia/", "verified": true },
+        { "id": "rydeme", "text": "Use RydeMe to fast travel ($100 to skip the ride)", "link": "/guides/gta-6-getting-around/", "verified": true },
+        { "id": "register", "text": "Register a stolen car as your personal vehicle", "link": "/guides/gta-6-getting-around/", "verified": false },
+        { "id": "focus", "text": "Train Focus at Rodgers Ranch & Shooting Range", "link": "/guides/gta-6-jason-lucia/", "verified": false }
       ]
     },
     {
-      "title": "Day two",
+      "title": "Chapter 3 and beyond",
       "items": [
-        { "id": "visit-regions", "text": "Drive to every region once to reveal the map", "link": "/guides/gta-6-map-regions/", "verified": false },
-        { "id": "upgrade", "text": "Spend your first real money on the upgrade that helps most", "verified": false },
-        { "id": "property", "text": "Check whether any property or business is worth buying early", "verified": false },
-        { "id": "secrets", "text": "Hunt one secret or easter egg from the map", "link": "/map/", "verified": false }
+        { "id": "jewelry", "text": "Rob jewelry stores for Yasmani ($10,000 to $25,000 each)", "link": "/guides/gta-6-make-money-fast/", "verified": true },
+        { "id": "randy", "text": "Get the Key Cloner and fill Randy's wish list ($30,000+ per car)", "link": "/guides/gta-6-make-money-fast/", "verified": true },
+        { "id": "banks", "text": "Hit small banks and payday loans after *Credit Check*", "link": "/guides/gta-6-make-money-fast/", "verified": true },
+        { "id": "vaults", "text": "Rob bank vaults after *That's Where The Money Is…* (up to $205,000)", "link": "/guides/gta-6-make-money-fast/", "verified": true }
       ]
     }
   ]

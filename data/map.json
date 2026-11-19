@@ -2,7 +2,7 @@
   "image": "/images/map-placeholder.svg",
   "width": 2048,
   "height": 2048,
-  "placeholder": "Placeholder map. Region labels are approximate until the real map is out.",
+  "placeholder": "Placeholder map. Region labels are approximate; exact pins go up as locations are verified.",
   "categories": [
     { "id": "region", "label": "Regions", "color": "#e9ecf1", "icon": "", "style": "label" },
     { "id": "safehouse", "label": "Safehouses", "color": "#3ad1c6", "icon": "⌂" },

@@ -18,7 +18,7 @@ To build the deployable site once: `python build.py` (output goes in `dist/`).
 
 | What | File |
 |---|---|
-| Site name, domain, launch date, ad/analytics code, tip link | `data/site.json` |
+| Site name, domain, launch date, ad/analytics code, tip jar handles | `data/site.json` |
 | Guides (one Markdown file each) | `content/guides/*.md` |
 | Map markers | `data/markers.json` |
 | Map image and categories | `data/map.json`, `static/images/` |
@@ -69,6 +69,24 @@ Put the image in `static/images/`, then update `image`, `width` and `height` in 
 **Without git:** run `python build.py` and drag `dist/` onto https://app.netlify.com/drop.
 
 The site uses root paths (`/assets/...`), so it needs to sit at the root of a domain, not in a subfolder.
+
+## Tip jar
+
+`/tip/` shows amount buttons ($3 / $5 / $10 / $25 / custom) and one payment button per handle you fill in under `tipJar` in `data/site.json`:
+
+```
+"kofi": "yourname",        -> ko-fi.com/yourname
+"paypal": "yourname",      -> paypal.me/yourname/<amount>USD (amount pre-filled)
+"cashapp": "yourname",     -> cash.app/$yourname/<amount>  (amount pre-filled)
+"venmo": "yourname",       -> venmo.com/u/yourname
+"buymeacoffee": "yourname" -> buymeacoffee.com/yourname
+```
+
+Leave a handle empty to hide that button. Payments go straight to the provider; the site never handles money. Every guide also shows a small "Tip jar" card.
+
+## Keeping facts straight
+
+Every guide ends with a **Sources** list. House rule: a claim goes in plainly only when two independent sources agree. A single-source claim names its source in the text ("PowerPyx reports…"), and conflicting claims are marked as disputed or left out.
 
 ## Ads
 

@@ -73,6 +73,36 @@
   };
   if (counters.length) { tick(); setInterval(tick, 1000); }
 
+  // ---- tip jar: amount chips fill the amount into providers that support it
+  var jar = document.querySelector(".tipjar");
+  if (jar) {
+    var chips = jar.querySelectorAll(".chip[data-amount]");
+    var custom = jar.querySelector("[data-custom]");
+    var setAmount = function (amount) {
+      jar.querySelectorAll(".pay[data-template]").forEach(function (a) {
+        a.href = a.dataset.template.replace("{amount}", amount);
+      });
+    };
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        chips.forEach(function (c) { c.classList.remove("is-on"); c.setAttribute("aria-pressed", "false"); });
+        chip.classList.add("is-on");
+        chip.setAttribute("aria-pressed", "true");
+        if (custom) custom.value = "";
+        setAmount(chip.dataset.amount);
+      });
+    });
+    if (custom) {
+      custom.addEventListener("input", function () {
+        var v = Math.floor(Number(custom.value));
+        if (v >= 1 && v <= 999) {
+          chips.forEach(function (c) { c.classList.remove("is-on"); c.setAttribute("aria-pressed", "false"); });
+          setAmount(v);
+        }
+      });
+    }
+  }
+
   // ---- "5 min ago" times
   function rel(iso) {
     var d = new Date(iso), s = (Date.now() - d.getTime()) / 1000;

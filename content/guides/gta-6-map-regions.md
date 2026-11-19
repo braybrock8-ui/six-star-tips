@@ -1,45 +1,65 @@
 ---
-title: GTA 6 map regions: every area of Leonida explained
-short: Map regions
-description: A quick tour of every region in GTA 6's Leonida, from Vice City to the Keys, and what each area is good for.
-order: 4
-status: prelaunch
-updated: 2026-11-11
+title: GTA 6 map: every region of Leonida and what's there
+short: Map & regions
+description: A tour of GTA 6's state of Leonida, covering Vice City, the Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia and Mount Kalaga, with the towns, neighbourhoods and services in each.
+order: 10
+status: live
+updated: 2026-11-19
 ---
-GTA 6 is set in the state of Leonida. Below are the regions Rockstar has shown so far. We'll add what each one is good for once the game is out. See them all on the [interactive map](/map/).
+GTA 6 is set in **Leonida**, Rockstar's take on Florida. Rockstar describes six regions. Below is what each one holds, based on Rockstar's descriptions and on the locations named in launch-day guides.
+
+> [!TIP] Rockstar's [official site](https://www.rockstargames.com/VI) has a free printable map of Leonida. Our [interactive map](/map/) lets you track what you've found.
 
 # Vice City
 
-The big neon city and the center of the story.
+The neon-lit city at the heart of the story, inspired by Miami.
 
-> [!TBD] Add key districts, best early safehouse, shops and money spots.
+- **Neighbourhoods named so far:** Ocean Beach, Little Cuba, Downtown, La Perle, Balsero, Washington Beach, Peacock Bay, Bayside, Rockridge, and **VC Port**, which Rockstar calls the cruise-ship capital of the world. VCIA is the airport.
+- **Landmarks:** the Tisha-Wocka flea market.
+- **Money:** several of the biggest bank vaults are in Downtown and Ocean Beach, and the fences **Tyrone** (La Perle), **Yasmani** (Little Cuba) and **Randy** (Balsero) are all here. See the [money guide](/guides/gta-6-make-money-fast/).
 
 # Leonida Keys
 
-A chain of islands off the southern tip.
+A tropical island chain. This is where the game starts.
 
-> [!TBD] Add how to get there, boats, and what's worth doing.
+- **Key Lento** is Jason's home and the Chapter 1 hub. It has the Three Sheets liquor store, the early fences Brian and Donnie, and a Fleeca bank.
+- **Hamlet** is a nearby town. A crashed plane worth looting sits in a field to its south.
+- Kenton runs treasure dives here.
+- The **Kingfishers: Fishing Shacks** Illegal Operation sits in the swamps north-west of Key Lento.
 
 # Grassrivers
 
-Wetlands and swamp country.
-
-> [!TBD] Add wildlife, hidden spots and vehicles that handle the terrain.
+Swamp country with alligators and mangroves. Players have reported a Bigfoot encounter in Leonida's swamps.
 
 # Port Gellhorn
 
-A worn-down beach town on the gulf side.
+A faded former vacation town and the Chapter 2 base.
 
-> [!TBD] Add what's here and why you'd visit.
+- **Moses** buys trackerless cars here, and **Dunk** is a fence.
+- The **La Cascara Motel** is an Illegal Operation here.
+- **Rodgers Ranch & Shooting Range** is on the north-east edge of town, in Kelly County.
 
 # Ambrosia
 
-An industrial town inland.
+An inland industrial town, home to the **Allied Crystal sugar refinery** and a local biker gang. It has a Shorefront bank. PowerPyx notes a train tunnel to the north that's useful for losing police helicopters.
 
-> [!TBD] Add what's here and why you'd visit.
+# Mount Kalaga
 
-# Mount Kalaga National Park
+A national park on Leonida's northern border, with hunting, fishing and off-road trails.
 
-Backcountry wilderness and trails.
+# Counties
 
-> [!TBD] Add off-road routes, hunting or outdoor activities, and secrets.
+Locations in guides are also grouped by county. **Vice-Dale County** covers Vice City. **Mariana County**, **Leonard County** and **Kelly County** cover other parts of the state.
+
+# What's not in the game
+
+Rockstar's head of production confirmed there's **no Disney World equivalent** and **no darts**. The reason he gave: "we don't have unlimited time."
+
+# Sources
+
+- [PlayStation Blog: Grand Theft Auto VI launches tomorrow](https://blog.playstation.com/2026/11/18/grand-theft-auto-vi-launches-tomorrow-november-19/)
+- [Rockstar Newswire: Grand Theft Auto VI Now Available](https://www.rockstargames.com/newswire/article/39akk424a9oo53/grand-theft-auto-vi-now-available)
+- [PowerPyx: All bank jobs (locations)](https://www.powerpyx.com/gta-6-all-bank-jobs-locations-bank-vaults/)
+- [PowerPyx: All fence locations](https://www.powerpyx.com/gta-6-all-fence-locations-how-to-fence-stolen-goods/)
+- [IGN official GTA 6 guide: Best Ways to Make Money Early](https://www.ign.com/wikis/gta-6/Best_Ways_to_Make_Money_Early)
+- [Kotaku: GTA 6 launch live updates](https://kotaku.com/live-updates-on-gta-6-the-biggest-launch-in-gaming-history-2000758030)

@@ -136,7 +136,7 @@ def markdown(src, page_key):
             flush_all()
             kind = m.group(1).lower()
             label = CALLOUTS.get(kind, kind.title())
-            out.append(f'<div class="callout callout-{kind}"><strong>{label}</strong> {inline(m.group(2))}</div>')
+            out.append(f'<div class="callout callout-{kind}"><span class="callout-label">{label}</span> {inline(m.group(2))}</div>')
             continue
 
         m = re.match(r"^>\s?(.*)$", line)
@@ -245,8 +245,8 @@ class Site:
     # ---- output
 
     def nav(self, current):
-        links = [("/map/", "Map"), ("/checklist/", "Checklist"), ("/guides/", "Guides"),
-                 ("/updates/", "Live log"), ("/submit/", "Submit")]
+        links = [("/map/", "Map"), ("/guides/", "Guides"), ("/checklist/", "Checklist"),
+                 ("/updates/", "Live log"), ("/tip/", "Tip jar")]
         items = []
         for href, label in links:
             cur = ' aria-current="page"' if current.startswith(href) else ""
@@ -280,7 +280,7 @@ class Site:
             body_class=" ".join(classes),
             launch=esc(cfg["launchDate"]),
             year=dt.date.today().year,
-            tip_url=esc(cfg["tipUrl"]),
+            tip_url="/tip/",
             disclaimer=esc(cfg["disclaimer"]),
             affiliate_note=esc(cfg["affiliateNote"]),
         )
@@ -353,9 +353,9 @@ class Site:
 </section>
 {self.ad('home-top')}
 {self.tiles([
-    ("01", "The map", "Every location, collectible and secret. Mark what you've found.", "/map/"),
-    ("02", "The checklist", "Your first 48 hours in order, saved as you tick.", "/checklist/"),
-    ("03", "The live log", "New confirmed finds, newest first, all launch week.", "/updates/"),
+    ("01", "Cheat codes", "Every cheat code that two or more guides agree on, plus what unlocks each one.", "/guides/gta-6-cheats/"),
+    ("02", "Make money", "Every money method by chapter, from early drug runs to $205,000 bank vaults.", "/guides/gta-6-make-money-fast/"),
+    ("03", "The live log", "New confirmed info, newest first, all launch week.", "/updates/"),
 ])}
 <section class="band">
   <p class="kicker">Reader finds</p>
@@ -399,11 +399,13 @@ class Site:
   <aside class="article-rail right">
     <div class="sticky">
       {progress_block()}
+      {self.tip_card()}
       {self.ad('guide-rail')}
       <p class="rail-note small">Spotted something wrong or missing? <a href="/submit/">Send it in</a> and we'll credit you.</p>
     </div>
   </aside>
 </div>
+<div class="tip-inline">{self.tip_card()}</div>
 <section class="read-next">
   <h2 class="rule-head center">Keep reading</h2>
   {self.tiles([(o["num"], o["short"], o["description"], o["url"]) for o in related])}
@@ -526,6 +528,74 @@ class Site:
                    article_head("Reader finds", "Got it, thanks.", "We check every find before it goes on the map.")
                    + '<div class="cta"><a class="btn" href="/map/">Back to the map</a></div>', index=False)
 
+    # ---- tip jar
+
+    TIP_PROVIDERS = [
+        # (config key, label, url template, supports amount in URL, note)
+        ("kofi", "Ko-fi", "https://ko-fi.com/{h}", False, "Card, PayPal or Apple Pay. No account needed."),
+        ("paypal", "PayPal", "https://paypal.me/{h}/{amount}USD", True, "Opens with your amount filled in."),
+        ("cashapp", "Cash App", "https://cash.app/${h}/{amount}", True, "Opens with your amount filled in."),
+        ("venmo", "Venmo", "https://venmo.com/u/{h}", False, "Enter the amount in Venmo."),
+        ("buymeacoffee", "Buy Me a Coffee", "https://buymeacoffee.com/{h}", False, "Card or Apple Pay. No account needed."),
+    ]
+
+    def tip_providers(self):
+        tj = self.cfg.get("tipJar", {})
+        out = []
+        for key, label, tmpl, has_amount, note in self.TIP_PROVIDERS:
+            handle = str(tj.get(key, "")).strip().lstrip("$@")
+            if handle:
+                out.append((key, label, tmpl.replace("{h}", handle), has_amount, note))
+        return out
+
+    def tip_card(self):
+        return ('<aside class="tip-card"><p class="kicker">Tip jar</p>'
+                '<p>This guide is free and checked by hand. If it helped, a tip keeps it going.</p>'
+                '<a class="btn btn-primary" href="/tip/">Leave a tip</a></aside>')
+
+    def build_tip(self):
+        tj = self.cfg.get("tipJar", {})
+        providers = self.tip_providers()
+        default = tj.get("defaultAmount", 5)
+        chips = "".join(
+            f'<button type="button" class="chip{" is-on" if a == default else ""}" data-amount="{a}" '
+            f'aria-pressed="{"true" if a == default else "false"}">${a}</button>'
+            for a in tj.get("amounts", [3, 5, 10, 25]))
+        chips += ('<label class="chip chip-custom"><span>$</span>'
+                  '<input type="number" min="1" max="999" step="1" inputmode="numeric" placeholder="Other" '
+                  'aria-label="Custom amount" data-custom></label>')
+        if providers:
+            buttons = "".join(
+                f'<a class="pay" data-provider="{key}" data-template="{esc(url)}" href="{esc(url.replace("{amount}", str(default)))}" '
+                f'target="_blank" rel="noopener"><strong>{esc(label)}</strong><small>{esc(note)}</small></a>'
+                for key, label, url, _, note in providers)
+            pay = f'<div class="pay-grid">{buttons}</div>'
+        elif self.cfg.get("showAdPlaceholders"):
+            pay = ('<div class="callout callout-tbd"><span class="callout-label">Setup needed</span> Add at least one handle under '
+                   '<code>tipJar</code> in <code>data/site.json</code> (Ko-fi, PayPal, Cash App, Venmo or '
+                   'Buy Me a Coffee). The buttons appear automatically. This note only shows while '
+                   '<code>showAdPlaceholders</code> is on.</div>')
+        else:
+            pay = '<p class="muted">The tip jar opens soon. Thanks for thinking of it.</p>'
+        body = article_head("Support the atlas", tj.get("headline", "Tip jar"), tj.get("message", ""))
+        body += f"""
+<div class="narrow tipjar">
+  <p class="kicker center">1 · Pick an amount</p>
+  <div class="chips" role="group" aria-label="Tip amount">{chips}</div>
+  <p class="kicker center">2 · Pick how to pay</p>
+  {pay}
+  <p class="fine center">Tips are a gift, not a purchase. You don't get anything extra, and the guide stays free for everyone. Payments go straight to the provider you pick; this site never sees your card details.</p>
+  <div class="prose">
+    <h2>Where tips go</h2>
+    <ul>
+      <li>Hosting and the domain, so the map and guides stay fast.</li>
+      <li>Time spent checking every claim against at least two sources before it goes up.</li>
+      <li>Keeping ads to a minimum.</li>
+    </ul>
+  </div>
+</div>"""
+        self.write("/tip/", "Tip jar", "Support Day One Atlas, the free GTA 6 field guide.", body, index=True)
+
     def build_about(self):
         cfg = self.cfg
         body = article_head("About", "About Day One Atlas",
@@ -572,6 +642,7 @@ class Site:
         self.build_guides()
         self.build_updates()
         self.build_submit()
+        self.build_tip()
         self.build_about()
         self.build_404()
         self.build_meta_files()
