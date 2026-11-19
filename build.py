@@ -701,7 +701,7 @@ class Site:
                    '<code>showAdPlaceholders</code> is on.</div>')
         else:
             pay = '<p class="muted">The tip jar opens soon. Thanks for thinking of it.</p>'
-        body = article_head("Support the atlas", tj.get("headline", "Tip jar"), tj.get("message", ""))
+        body = article_head("Support the site", tj.get("headline", "Tip jar"), tj.get("message", ""))
         body += f"""
 <div class="narrow tipjar">
   <p class="kicker center">1 · Pick an amount</p>
@@ -712,7 +712,7 @@ class Site:
   <div class="prose">
     <h2>Where tips go</h2>
     <ul>
-      <li>Hosting and the domain, so the map and guides stay fast.</li>
+      <li>Hosting and the domain, so the guides and videos stay fast.</li>
       <li>Time spent checking every claim against at least two sources before it goes up.</li>
       <li>Keeping ads to a minimum.</li>
     </ul>
