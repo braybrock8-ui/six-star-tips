@@ -1,9 +1,11 @@
 ---
 title: GTA 6 trophy and achievement list: all 55, with tips
+seo_title: GTA 6 Trophy List: All 55 Trophies & Achievements
 short: Trophies & achievements
-description: Every GTA 6 trophy and achievement, with tier and Gamerscore, grouped by activity, plus which ones take the longest. Story trophies are kept in their own section.
+description: All 55 GTA 6 trophies and achievements with tiers and Gamerscore, grouped by activity, with story trophies kept separate.
 order: 9
 status: live
+published: 2026-11-19
 updated: 2026-11-19
 ---
 GTA 6 has **55 trophies**: 1 Platinum, 2 Gold, 6 Silver and 46 Bronze. On Xbox there are 55 achievements worth **1,000 Gamerscore**. The Platinum is **Vice Got a Price!**. Every award can be earned in story mode, and none of them involve online play.

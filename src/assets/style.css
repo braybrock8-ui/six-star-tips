@@ -1,4 +1,4 @@
-/* Day One Atlas: printed-atlas / broadsheet system.
+/* Printed-atlas / broadsheet system.
    Paper, ink and one signal colour. Square corners, hairline rules, mirrored columns. */
 
 :root {
@@ -114,6 +114,8 @@ h3 { font-size: 1.25rem; margin: 1.6em 0 0.4em; }
   text-transform: uppercase; text-decoration: none; color: var(--ink);
 }
 .wordmark:hover { color: var(--ink); }
+.stars { margin: 6px 0 0; color: var(--accent); font-size: 1.1rem; letter-spacing: 0.5em; padding-left: 0.5em; line-height: 1; }
+body.inner .stars { font-size: 0.85rem; }
 .motto { margin: 10px 0 0; font: italic 400 1rem/1.4 var(--serif); color: var(--muted); }
 body.inner .masthead { padding: 18px 0 14px; }
 body.inner .wordmark { font-size: clamp(1.7rem, 4.6vw, 3rem); }
@@ -462,6 +464,8 @@ ul.checks a { margin-left: 6px; font: 500 0.68rem/1 var(--mono); letter-spacing:
 .wordmark-sm { font-size: 1.6rem; }
 .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 22px; margin: 18px 0 22px; font: 700 0.72rem/1 var(--display); font-stretch: 100%; letter-spacing: 0.14em; text-transform: uppercase; }
 .footer-links a { text-decoration: none; }
+.footer-guides { margin-bottom: 0; font-weight: 600; letter-spacing: 0.08em; color: var(--muted); }
+.footer-guides a:hover, .footer-links a:hover { color: var(--accent); }
 .fine { max-width: 640px; margin: 6px auto; font-size: 0.8rem; color: var(--muted); }
 
 /* ---------- responsive: collapse mirrored rails, keep everything centred */

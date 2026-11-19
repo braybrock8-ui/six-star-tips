@@ -15,6 +15,7 @@
       "title": "Chapter 1: the Keys",
       "items": [
         { "id": "gone-fishing", "text": "Finish *Gone Fishing* to open up the world", "verified": true },
+        { "id": "house-projects", "text": "Fix all 4 house projects (steps, roof, railing, bedroom wall) **before** *Coming Home*, or you'll miss them", "link": "/guides/gta-6-fix-railing-jasons-house/", "verified": true },
         { "id": "stash", "text": "Keep spare cash in the stash at Jason's safehouse until you can bank", "link": "/guides/gta-6-first-48-hours/", "verified": true },
         { "id": "fishing-shacks", "text": "Loot the Kingfishers: Fishing Shacks operation north-west of Key Lento (close to $2,000)", "link": "/guides/gta-6-make-money-fast/", "verified": true },
         { "id": "shirley", "text": "Finish Shirley's rum errand before you investigate the strange noises behind Three Sheets", "link": "/guides/gta-6-make-money-fast/", "verified": true },

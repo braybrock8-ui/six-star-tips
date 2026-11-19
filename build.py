@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds Day One Atlas into dist/. Pure standard library, no installs.
+"""Builds the site into dist/. Pure standard library, no installs.
 
     python build.py            build once
     python build.py --drafts   also build guides marked `status: draft`
@@ -229,6 +229,9 @@ class Site:
                 "slug": slug,
                 "url": f"/guides/{slug}/",
                 "title": meta.get("title", slug),
+                # <title> for search results: keep under ~60 chars, keyword first
+                "seo_title": meta.get("seo_title", meta.get("title", slug)),
+                "published": meta.get("published", meta.get("updated", self.today)),
                 "short": meta.get("short", meta.get("title", slug)),
                 "description": meta.get("description", ""),
                 "order": int(meta.get("order", 100)),
@@ -256,12 +259,23 @@ class Site:
     def ad(self, slot):
         return f'<div class="ad-slot" data-ad="{slot}"></div>'
 
+    def abs_url(self, path):
+        return self.cfg["url"].rstrip("/") + path
+
+    def og_image_for(self, slug=None):
+        if slug and (ROOT / "static" / "og" / f"{slug}.png").exists():
+            return self.abs_url(f"/og/{slug}.png")
+        return self.abs_url("/og/default.png")
+
     def write(self, url, title, description, body, head_extra="", scripts="",
-              lastmod=None, index=True, search_text=None):
+              lastmod=None, index=True, search_text=None, seo_title=None,
+              og_image=None, og_type="website"):
         cfg = self.cfg
-        full_title = title if url == "/" else f"{title} | {cfg['name']}"
-        canonical = cfg["url"].rstrip("/") + url
-        robots = "" if index else '<meta name="robots" content="noindex">'
+        page_title = seo_title or title
+        full_title = page_title if url == "/" else f"{page_title} | {cfg['name']}"
+        canonical = self.abs_url(url)
+        robots = ("index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+                  if index else "noindex, follow")
         classes = []
         if url != "/":
             classes.append("inner")
@@ -270,15 +284,20 @@ class Site:
         page = fill(
             self.layout,
             title=esc(full_title),
+            og_title=esc(page_title),
+            og_type=og_type,
+            og_image=esc(og_image or self.og_image_for()),
+            robots=robots,
             description=esc(description),
             canonical=esc(canonical),
             site_name=esc(cfg["name"]),
             nav=self.nav(url),
             body=body,
-            head_extra=cfg.get("headHtml", "") + robots + head_extra,
+            head_extra=cfg.get("headHtml", "") + head_extra,
             scripts=scripts,
             body_class=" ".join(classes),
             launch=esc(cfg["launchDate"]),
+            footer_guides="".join(f'<a href="{g["url"]}">{esc(g["short"])}</a>' for g in self.guides[:8]),
             year=dt.date.today().year,
             tip_url="/tip/",
             disclaimer=esc(cfg["disclaimer"]),
@@ -363,7 +382,15 @@ class Site:
   <p>Send us a location, money method or secret. Confirmed finds go on the map with your name on them.</p>
   <a class="btn btn-primary" href="/submit/">Submit a find</a>
 </section>"""
-        self.write("/", f"{cfg['headline']} | {cfg['name']}", cfg["tagline"], body)
+        base = cfg["url"].rstrip("/")
+        ld = json.dumps([
+            {"@context": "https://schema.org", "@type": "WebSite", "name": cfg["name"], "url": base + "/",
+             "description": cfg["tagline"], "inLanguage": "en-US"},
+            {"@context": "https://schema.org", "@type": "Organization", "name": cfg["name"], "url": base + "/",
+             "logo": base + "/og/logo.png"},
+        ]).replace("</", "<\\/")
+        self.write("/", f"{cfg.get('homeTitle', cfg['headline'])} | {cfg['name']}", cfg["tagline"], body,
+                   head_extra=f'<script type="application/ld+json">{ld}</script>')
 
     def build_updates(self):
         body = article_head("Live log", "Everything confirmed so far",
@@ -381,14 +408,33 @@ class Site:
                        + "".join(f'<li><a href="#{hid}">{inline(t)}</a></li>' for hid, t in g["toc"])
                        + "</ol></nav>")
             content = g["html"].replace("<h2", self.ad("guide-mid") + "<h2", 1)
-            related = [o for o in self.guides if o["slug"] != g["slug"]][:3]
+            # spread internal links: each guide points at the next three in order (wrapping)
+            i = self.guides.index(g)
+            related = [self.guides[(i + k) % len(self.guides)] for k in (1, 2, 3) if len(self.guides) > k]
             badge = ' &middot; <span class="badge badge-warn">Pre-launch draft</span>' if g["status"] == "prelaunch" else ""
-            ld = json.dumps({
-                "@context": "https://schema.org", "@type": "Article",
-                "headline": g["title"], "description": g["description"],
-                "dateModified": g["updated"],
-                "publisher": {"@type": "Organization", "name": self.cfg["name"]},
-            })
+            page_url = self.abs_url(g["url"])
+            org = {"@type": "Organization", "name": self.cfg["name"], "url": self.abs_url("/"),
+                   "logo": {"@type": "ImageObject", "url": self.abs_url("/og/logo.png")}}
+            ld = json.dumps([
+                {
+                    "@context": "https://schema.org", "@type": "Article",
+                    "headline": g["seo_title"][:110], "description": g["description"],
+                    "image": [self.og_image_for(g["slug"])],
+                    "datePublished": g["published"], "dateModified": g["updated"],
+                    "author": org, "publisher": org,
+                    "mainEntityOfPage": {"@type": "WebPage", "@id": page_url},
+                    "about": {"@type": "VideoGame", "name": "Grand Theft Auto VI",
+                              "gamePlatform": ["PlayStation 5", "Xbox Series X|S"]},
+                },
+                {
+                    "@context": "https://schema.org", "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {"@type": "ListItem", "position": 1, "name": "Home", "item": self.abs_url("/")},
+                        {"@type": "ListItem", "position": 2, "name": "Guides", "item": self.abs_url("/guides/")},
+                        {"@type": "ListItem", "position": 3, "name": g["short"], "item": page_url},
+                    ],
+                },
+            ]).replace("</", "<\\/")
             body = article_head(
                 f'<a href="/guides/">Guide No. {g["num"]}</a>', g["title"], g["description"],
                 f'Updated <time datetime="{esc(g["updated"])}">{esc(g["updated"])}</time>{badge}')
@@ -410,9 +456,12 @@ class Site:
   <h2 class="rule-head center">Keep reading</h2>
   {self.tiles([(o["num"], o["short"], o["description"], o["url"]) for o in related])}
 </section>"""
-            head = f'<script type="application/ld+json">{ld}</script>'
+            head = (f'<script type="application/ld+json">{ld}</script>'
+                    f'<meta property="article:published_time" content="{esc(g["published"])}">'
+                    f'<meta property="article:modified_time" content="{esc(g["updated"])}">')
             self.write(g["url"], g["title"], g["description"], body, head_extra=head,
-                       lastmod=g["updated"], search_text=g["description"] + " " + strip_tags(g["html"]))
+                       lastmod=g["updated"], search_text=g["description"] + " " + strip_tags(g["html"]),
+                       seo_title=g["seo_title"], og_image=self.og_image_for(g["slug"]), og_type="article")
 
         rows = "".join(
             f'<li><a href="{g["url"]}"><span class="num">{g["num"]}</span>'
@@ -422,7 +471,7 @@ class Site:
         body = article_head("Contents", "The guides",
                             "Short, practical guides, updated as the game gets figured out.")
         body += f'<ol class="toc-index">{rows}</ol>'
-        self.write("/guides/", "All GTA 6 guides", "Every Day One Atlas guide for GTA 6 in one place.", body)
+        self.write("/guides/", "All GTA 6 Guides & Walkthrough Help", f"Every {self.cfg['name']} guide for GTA 6 in one place.", body)
 
     def build_checklist(self):
         c = self.checklist
@@ -501,7 +550,7 @@ class Site:
         head = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">'
         scripts = ('<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>'
                    '<script src="/assets/map.js" defer></script>')
-        self.write("/map/", "GTA 6 interactive map: every location, collectible and secret",
+        self.write("/map/", "GTA 6 Interactive Map: Locations & Collectibles",
                    "Searchable GTA 6 map with collectibles, money spots, safehouses and secrets. Mark what you've found.",
                    body, head_extra=head, scripts=scripts)
 
@@ -523,7 +572,7 @@ class Site:
     <button class="btn btn-primary" type="submit">Send it</button>
   </form>
 </div>"""
-        self.write("/submit/", "Submit a GTA 6 find", "Send a location, money method or secret to Day One Atlas.", body)
+        self.write("/submit/", "Submit a GTA 6 find", f"Send a location, money method or secret to {self.cfg['name']}.", body)
         self.write("/thanks/", "Thanks!", "Submission received.",
                    article_head("Reader finds", "Got it, thanks.", "We check every find before it goes on the map.")
                    + '<div class="cta"><a class="btn" href="/map/">Back to the map</a></div>', index=False)
@@ -594,11 +643,11 @@ class Site:
     </ul>
   </div>
 </div>"""
-        self.write("/tip/", "Tip jar", "Support Day One Atlas, the free GTA 6 field guide.", body, index=True)
+        self.write("/tip/", "Tip jar", f"Support {self.cfg['name']}, the free GTA 6 field guide.", body, index=True)
 
     def build_about(self):
         cfg = self.cfg
-        body = article_head("About", "About Day One Atlas",
+        body = article_head("About", f"About {cfg['name']}",
                             "A small, fast fan guide for the first days of GTA 6.")
         body += f"""
 <div class="narrow prose">
@@ -611,7 +660,7 @@ class Site:
   <h2>Contact</h2>
   <p><a href="mailto:{esc(cfg['contactEmail'])}">{esc(cfg['contactEmail'])}</a></p>
 </div>"""
-        self.write("/about/", "About", "About Day One Atlas, how we confirm finds, and how to reach us.", body)
+        self.write("/about/", "About", f"About {cfg['name']}, how we confirm finds, and how to reach us.", body)
 
     def build_404(self):
         self.write("/404.html", "Page not found", "Page not found.",
@@ -628,6 +677,33 @@ class Site:
             encoding="utf-8")
         (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n", encoding="utf-8")
         (DIST / "search-index.json").write_text(json.dumps(self.search), encoding="utf-8")
+        self.build_feed()
+
+    def build_feed(self):
+        """RSS 2.0 feed of the live log, so readers and aggregators pick up new finds."""
+        from email.utils import format_datetime
+        cfg = self.cfg
+        items = []
+        for u in self.updates[:40]:
+            when = dt.datetime.fromisoformat(u["time"])
+            text = strip_tags(inline(u["text"]))
+            link = re.search(r"\]\((/[^)\s]*)\)", u["text"])
+            href = self.abs_url(link.group(1) if link else "/updates/")
+            title = text if len(text) <= 100 else text[:97].rsplit(" ", 1)[0] + "…"
+            items.append(
+                f"<item><title>{esc(title)}</title><link>{esc(href)}</link>"
+                f"<guid isPermaLink=\"false\">{esc(u['time'])}</guid>"
+                f"<pubDate>{format_datetime(when)}</pubDate>"
+                f"<description>{esc(text)}</description></item>")
+        feed = (
+            '<?xml version="1.0" encoding="UTF-8"?>'
+            '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>'
+            f"<title>{esc(cfg['name'])}: GTA 6 live log</title>"
+            f"<link>{esc(self.abs_url('/updates/'))}</link>"
+            f'<atom:link href="{esc(self.abs_url("/updates/feed.xml"))}" rel="self" type="application/rss+xml"/>'
+            f"<description>New confirmed GTA 6 finds, newest first.</description>"
+            f"<language>en-us</language>{''.join(items)}</channel></rss>")
+        (DIST / "updates" / "feed.xml").write_text(feed, encoding="utf-8")
 
     def build(self):
         if DIST.exists():

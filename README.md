@@ -84,6 +84,17 @@ The site uses root paths (`/assets/...`), so it needs to sit at the root of a do
 
 Leave a handle empty to hide that button. Payments go straight to the provider; the site never handles money. Every guide also shows a small "Tip jar" card.
 
+## SEO: what's built in
+
+- **Titles:** each guide has a `seo_title` for the `<title>` tag, kept short with the keyword first. The longer `title` is the on-page H1. Titles were picked from real Google autocomplete phrases (e.g. "gta 6 cheats", "how to fix railing", "best settings").
+- **Descriptions:** keep them under 155 characters so they aren't cut off in results.
+- **Structured data:** WebSite and Organization on the home page; Article and BreadcrumbList on every guide, with publish and update dates.
+- **Social cards:** 1200x630 share images in `static/og/`. Re-run `python tools/og_images.py` after adding a guide (needs `pip install pillow`).
+- **Feeds and sitemaps:** an RSS feed of the live log at `/updates/feed.xml`, plus `sitemap.xml` and `robots.txt`.
+- **Internal links:** "Keep reading" rotates through the next three guides, and the footer links the top eight.
+
+**Fastest ranking wins after launch:** answer specific questions people are stuck on (the railing page is the template). Check Google autocomplete for "gta 6 how to…" and "gta 6 where…" every day, and write a short page for any stuck-point you can verify.
+
 ## Keeping facts straight
 
 Every guide ends with a **Sources** list. House rule: a claim goes in plainly only when two independent sources agree. A single-source claim names its source in the text ("PowerPyx reports…"), and conflicting claims are marked as disputed or left out.

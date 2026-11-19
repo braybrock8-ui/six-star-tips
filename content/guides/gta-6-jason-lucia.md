@@ -1,9 +1,11 @@
 ---
 title: GTA 6 Jason and Lucia: how to switch, stats, relationship levels
+seo_title: GTA 6: How to Switch Characters, Stats & Romance
 short: Jason & Lucia
 description: When you can play as Lucia in GTA 6, how to switch characters, how stats and Focus level up, and how the relationship system works.
 order: 6
 status: live
+published: 2026-11-19
 updated: 2026-11-19
 ---
 # Who they are

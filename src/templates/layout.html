@@ -5,13 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{title}}</title>
 <meta name="description" content="{{description}}">
+<meta name="robots" content="{{robots}}">
 <link rel="canonical" href="{{canonical}}">
-<meta property="og:type" content="website">
+<link rel="alternate" type="application/rss+xml" title="{{site_name}} live log" href="/updates/feed.xml">
+<meta property="og:type" content="{{og_type}}">
 <meta property="og:site_name" content="{{site_name}}">
-<meta property="og:title" content="{{title}}">
+<meta property="og:title" content="{{og_title}}">
 <meta property="og:description" content="{{description}}">
 <meta property="og:url" content="{{canonical}}">
+<meta property="og:image" content="{{og_image}}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{og_title}}">
+<meta name="twitter:description" content="{{description}}">
+<meta name="twitter:image" content="{{og_image}}">
 <meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121110" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -31,7 +40,8 @@
 </div>
 <header class="masthead">
   <div class="frame">
-    <a class="wordmark" href="/">Day One Atlas</a>
+    <a class="wordmark" href="/">{{site_name}}</a>
+    <p class="stars" aria-hidden="true">★★★★★★</p>
     <p class="motto">Maps, checklists &amp; guides for Leonida &middot; updated live</p>
   </div>
 </header>
@@ -43,7 +53,8 @@
 </main>
 <footer class="site-footer">
   <div class="frame">
-    <a class="wordmark wordmark-sm" href="/">Day One Atlas</a>
+    <a class="wordmark wordmark-sm" href="/">{{site_name}}</a>
+    <p class="footer-links footer-guides">{{footer_guides}}</p>
     <p class="footer-links"><a href="/map/">Map</a><a href="/checklist/">Checklist</a><a href="/guides/">Guides</a><a href="/updates/">Live log</a><a href="/submit/">Submit a find</a><a href="/about/">About</a><a href="{{tip_url}}" rel="noopener">Support the map</a></p>
     <p class="fine">{{disclaimer}}</p>
     <p class="fine">{{affiliate_note}}</p>

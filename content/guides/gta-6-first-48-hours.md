@@ -1,9 +1,11 @@
 ---
 title: GTA 6 beginner tips: what to do first (and what to avoid)
+seo_title: GTA 6 Beginner Tips: What to Do First
 short: What to do first
 description: The GTA 6 tips that matter in your first hours: protect your cash, use Focus, sell product fast, and the mistakes that cost players money.
 order: 1
 status: live
+published: 2026-11-19
 updated: 2026-11-19
 ---
 GTA 6 changes a lot of series habits. Cash can be lost, the police track descriptions instead of just your location, and cars run on fuel. These are the things worth knowing before you get comfortable in Leonida.
@@ -60,6 +62,7 @@ Outside combat you get about 30 seconds of Focus on foot. Aim while in Focus to 
 # Your first missions and easy money
 
 1. Finish **Gone Fishing**. That's when the open world opens up.
+2. **Fix the four projects at Jason's house** (steps, roof, railing, bedroom wall) before you pick Lucia up in *Coming Home*. After that they're gone for good. [Where they are](/guides/gta-6-fix-railing-jasons-house/)
 2. Loot the **Kingfishers: Fishing Shacks** operation north-west of Key Lento. A full clear is worth close to $2,000. See the [money guide](/guides/gta-6-make-money-fast/).
 3. When Shirley asks for rum, **finish her errand before checking the "strange noises"** behind the Three Sheets liquor store. Investigating first starts a gunfight that locks the shop for a long time.
 4. Sell product to **Brian or Donnie** quickly. Hover their map icons first, because one often pays more.

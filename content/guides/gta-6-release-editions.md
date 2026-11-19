@@ -1,9 +1,11 @@
 ---
 title: GTA 6 release facts: editions, price, bonuses, size, PC and Online
+seo_title: GTA 6 Price, Editions, PC & Online Release Date
 short: Release & editions
-description: Everything official about GTA 6's launch: release time, Standard vs Ultimate Edition, the pre-order bonus deadline, download size, PC and GTA Online status, and review scores.
+description: GTA 6 price, Standard vs Ultimate Edition, the pre-order bonus deadline, download size, and PC and GTA Online status.
 order: 11
 status: live
+published: 2026-11-19
 updated: 2026-11-19
 ---
 # Release

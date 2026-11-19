@@ -1,9 +1,11 @@
 ---
 title: GTA 6 wanted level and Heat explained: how to lose the cops
+seo_title: GTA 6 Wanted Level & Heat: How to Lose the Cops
 short: Wanted & Heat
 description: What GTA 6's star colours and Heat icons mean, how police identify you, the fastest ways to lose them, and how your Criminal Profile changes things.
 order: 4
 status: live
+published: 2026-11-19
 updated: 2026-11-19
 ---
 GTA 6's police don't just chase a dot on the map. They search for a **description** of you, your clothes and your car. Once you understand that, escaping gets much easier.

@@ -1,9 +1,11 @@
 ---
 title: GTA 6 cheats: every code that guides agree on, and how to unlock them
+seo_title: GTA 6 Cheats: All Cheat Codes for PS5 & Xbox
 short: Cheat codes
-description: Every GTA 6 cheat code that at least two major guides agree on, how to enter cheats on PS5 and Xbox, what unlocks each one, and the catch with saving and trophies.
+description: Every GTA 6 cheat code that two or more guides agree on, how to enter cheats on PS5 and Xbox, and what unlocks each one.
 order: 3
 status: live
+published: 2026-11-19
 updated: 2026-11-19
 ---
 GTA 6 has **61 cheats**, but they work differently from older games. You unlock them by finishing the story and then meeting a requirement for each one. Using them also has costs. Rockstar hasn't published a list, so we compared three independent cheat lists and only show a code as confirmed when at least two of them match exactly.

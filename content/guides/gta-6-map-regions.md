@@ -1,9 +1,11 @@
 ---
 title: GTA 6 map: every region of Leonida and what's there
+seo_title: GTA 6 Map: Every Region of Leonida Explained
 short: Map & regions
-description: A tour of GTA 6's state of Leonida, covering Vice City, the Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia and Mount Kalaga, with the towns, neighbourhoods and services in each.
+description: A tour of GTA 6's Leonida map: Vice City, the Keys, Grassrivers, Port Gellhorn, Ambrosia and Mount Kalaga, and what's in each.
 order: 10
 status: live
+published: 2026-11-19
 updated: 2026-11-19
 ---
 GTA 6 is set in **Leonida**, Rockstar's take on Florida. Rockstar describes six regions. Below is what each one holds, based on Rockstar's descriptions and on the locations named in launch-day guides.

@@ -1,9 +1,11 @@
 ---
 title: GTA 6 fast travel, saving and vehicles: how it all works
+seo_title: GTA 6: How to Save, Fast Travel & Keep Cars
 short: Fast travel, saving & cars
 description: How fast travel works in GTA 6 (taxis and RydeMe), how to save and how many slots you get, plus fuel, repairs, personal vehicles and stealing cars.
 order: 7
 status: live
+published: 2026-11-19
 updated: 2026-11-19
 ---
 # Fast travel

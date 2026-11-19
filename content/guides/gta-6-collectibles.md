@@ -1,14 +1,18 @@
 ---
 title: GTA 6 collectibles and 100% completion: every category and count
+seo_title: GTA 6 Collectibles List & 100% Checklist
 short: Collectibles & 100%
 description: Every GTA 6 collectible and activity category with totals, from 480 trading cards to 125 cocaine flamingos, plus what 100% completion takes.
 order: 8
 status: live
+published: 2026-11-19
 updated: 2026-11-19
 ---
 GTA 6 is huge for completionists. PowerPyx's database tracks around **3,000** collectibles and activities. Their estimate is about **200 hours** for the 100% checklist and **300+ hours** to finish truly everything.
 
 > [!TIP] PowerPyx reports that **nothing on the 100% checklist is missable**, and free roam stays open after the story. You can play through the story first and clean up afterwards.
+
+> [!WARN] One early exception: the four **house projects at Jason's house**, including the railing, can't be done once you pick Lucia up in *Coming Home*. [Do them first](/guides/gta-6-fix-railing-jasons-house/).
 
 # Biggest categories
 

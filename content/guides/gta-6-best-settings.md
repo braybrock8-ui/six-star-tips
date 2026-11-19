@@ -1,9 +1,11 @@
 ---
 title: GTA 6 performance and best settings: 30fps, PS5 Pro, Series S, HDR fix
+seo_title: GTA 6 Best Settings, HDR Fix & Is There 60fps?
 short: Performance & settings
 description: How GTA 6 runs on PS5, PS5 Pro, Xbox Series X and Series S, why there's no 60fps mode, the HDR washed-out fix, and the settings worth changing.
 order: 5
 status: live
+published: 2026-11-19
 updated: 2026-11-19
 ---
 # Is there a 60fps or performance mode?
