@@ -403,7 +403,7 @@ class Site:
 <section class="band">
   <p class="kicker">Reader finds</p>
   <h2>Found something?</h2>
-  <p>Send us a location, money method or secret. Confirmed finds go on the map with your name on them.</p>
+  <p>Send us a location, money method or secret. Confirmed finds go on the site with your name on them.</p>
   <a class="btn btn-primary" href="/submit/">Submit a find</a>
 </section>"""
         base = cfg["url"].rstrip("/")
