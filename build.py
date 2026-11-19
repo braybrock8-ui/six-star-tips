@@ -297,6 +297,7 @@ class Site:
             scripts=scripts,
             body_class=" ".join(classes),
             launch=esc(cfg["launchDate"]),
+            ticker=self.ticker(),
             footer_guides="".join(f'<a href="{g["url"]}">{esc(g["short"])}</a>' for g in self.guides[:8]),
             year=dt.date.today().year,
             tip_url="/tip/",
@@ -312,6 +313,32 @@ class Site:
                 "title": title, "url": url, "type": "page",
                 "text": (search_text if search_text is not None else description)[:600],
             })
+
+    def confirmed_cheats(self):
+        """Counts rows in the cheats guide's confirmed table, so the home stat can't drift from the guide."""
+        g = next((g for g in self.guides if g["slug"] == "gta-6-cheats"), None)
+        if not g:
+            return 0
+        m = re.search(r'id="confirmed-codes".*?<tbody>(.*?)</tbody>', g["html"], re.S)
+        return m.group(1).count("<tr>") if m else 0
+
+    def ticker(self):
+        """Scrolling strip of the newest live-log entries, shown under the nav on every page."""
+        if not self.updates:
+            return ""
+        parts = []
+        for u in self.updates[:6]:
+            text = html.unescape(strip_tags(inline(u["text"])))
+            if len(text) > 120:
+                text = text[:117].rsplit(" ", 1)[0] + "…"
+            link = re.search(r"\]\((/[^)\s]*)\)", u["text"])
+            href = link.group(1) if link else "/updates/"
+            parts.append(f'<a href="{esc(href)}">{esc(text)}</a><span class="sep" aria-hidden="true">✦</span>')
+        run = "".join(parts)
+        return ('<div class="ticker" role="region" aria-label="Latest updates">'
+                '<a class="ticker-label" href="/updates/"><span class="live-dot"></span>Live</a>'
+                f'<div class="ticker-viewport"><div class="ticker-track">{run}<span aria-hidden="true" class="dup">{run}</span></div></div>'
+                '</div>')
 
     def updates_list(self, updates):
         if not updates:
@@ -334,41 +361,42 @@ class Site:
         cfg = self.cfg
         index = "".join(
             f'<li><a href="{g["url"]}"><span class="num">{g["num"]}</span><span class="t">{esc(g["short"])}</span></a></li>'
-            for g in self.guides)
+            for g in self.guides[:8])
         body = f"""
 <section class="front">
   <aside>
     <h2 class="rule-head">Latest finds</h2>
-    {self.updates_list(self.updates[:6])}
+    {self.updates_list(self.updates[:4])}
     <a class="more" href="/updates/">Full live log &rarr;</a>
   </aside>
   <div class="feature">
     <a class="feature-media" href="/map/">
-      <img src="/images/map-placeholder.svg" alt="Map of Leonida" width="1600" height="900">
-      <span class="tag">Open the interactive map</span>
+      <img src="/images/leonida-schematic.svg" alt="Schematic map of Leonida" width="2048" height="2048">
+      <span class="tag">Explore Leonida &rarr;</span>
     </a>
-    <p class="kicker">Leonida edition &middot; Unofficial</p>
+    <p class="status-pill"><span class="live-dot"></span>Out now &middot; PS5 &amp; Xbox Series X|S</p>
     <h1>{esc(cfg['headline'])}</h1>
     <p class="dek">{esc(cfg['tagline'])}</p>
-    <div class="countdown" data-launch="{esc(cfg['launchDate'])}"></div>
-    <p class="countdown-note">{esc(cfg['launchNote'])}</p>
     <div class="cta">
       <a class="btn btn-primary" href="/map/">Open the map</a>
-      <a class="btn" href="/checklist/">First 48 hours</a>
+      <a class="btn" href="/guides/gta-6-first-48-hours/">What to do first</a>
+    </div>
+    <div class="search hero-search">
+      <input id="search" type="search" placeholder="Search guides, places, cheats…" autocomplete="off" aria-label="Search the site">
+      <div id="search-results" class="search-results" hidden></div>
     </div>
   </div>
   <aside>
     <h2 class="rule-head">The guides</h2>
     <ol class="index-list">{index}</ol>
-    <a class="more" href="/guides/">All guides &rarr;</a>
+    <a class="more" href="/guides/">All {len(self.guides)} guides &rarr;</a>
   </aside>
 </section>
-<section class="search-band">
-  <p class="kicker">Search the atlas</p>
-  <div class="search">
-    <input id="search" type="search" placeholder="Find a guide, place or collectible" autocomplete="off" aria-label="Search">
-    <div id="search-results" class="search-results" hidden></div>
-  </div>
+<section class="stats" aria-label="What's on the site">
+  <a href="/guides/"><b>{len(self.guides)}</b><span>Guides</span></a>
+  <a href="/map/"><b>{len(self.markers)}</b><span>Places mapped</span></a>
+  <a href="/guides/gta-6-cheats/"><b>{self.confirmed_cheats()}</b><span>Confirmed cheats</span></a>
+  <a href="/updates/"><b>{len(self.updates)}</b><span>Live updates</span></a>
 </section>
 {self.ad('home-top')}
 {self.tiles([
@@ -507,56 +535,98 @@ class Site:
 
     def build_map(self):
         cats = {c["id"]: c for c in self.map["categories"]}
+        regions = self.map["regions"]
+        # static list (for search engines and no-JS readers), grouped by region
         groups = []
-        for c in self.map["categories"]:
-            ms = [m for m in self.markers if m["category"] == c["id"]]
+        for r in regions:
+            ms = [m for m in self.markers if m.get("region") == r["id"]]
             if not ms:
                 continue
             lis = "".join(
                 f'<li><a href="/map/#m={esc(m["id"])}">{esc(m["title"])}</a>'
-                f'{": " + esc(m["desc"]) if m.get("desc") else ""}</li>'
+                f'<span class="muted"> · {esc(m.get("place", ""))}</span><br>{esc(m.get("desc", ""))}</li>'
                 for m in ms)
-            groups.append(f'<div class="group"><h3>{esc(c["label"])} ({len(ms)})</h3><ul>{lis}</ul></div>')
+            groups.append(f'<div class="group"><h3><span class="swatch" style="--c:{r["color"]}"></span>'
+                          f'{esc(r["name"])} ({len(ms)})</h3><ul>{lis}</ul></div>')
         for m in self.markers:
             self.search.append({
-                "title": m["title"], "url": f"/map/#m={m['id']}", "type": cats.get(m["category"], {}).get("label", "Map"),
-                "text": (m.get("region", "") + " " + m.get("desc", ""))[:300],
+                "title": m["title"], "url": f"/map/#m={m['id']}",
+                "type": cats.get(m["category"], {}).get("label", "Map"),
+                "text": (m.get("place", "") + " " + m.get("desc", ""))[:300],
             })
-        cfg_json = json.dumps(self.map).replace("</", "<\\/")
-        body = article_head("Interactive map", "Leonida, mapped",
-                            "Every location, collectible and secret we've confirmed. Tap a marker to mark it found or share a link to it.")
+        region_cards = "".join(
+            f'<a class="region-card" href="/map/#r={esc(r["id"])}" style="--c:{r["color"]}">'
+            f'<span class="rc-n">{sum(1 for m in self.markers if m.get("region") == r["id"])} places</span>'
+            f'<h3>{esc(r["name"])}</h3><p>{esc(r["desc"])}</p></a>'
+            for r in regions)
+        payload = dict(self.map, markers=self.markers)
+        cfg_json = json.dumps(payload).replace("</", "<\\/")
+        body = article_head("Interactive map", "Leonida",
+                            "Search every place we've confirmed, filter by what you need, and track what you've found. "
+                            "Click a region to explore it.")
         body += f"""
-<div class="map-toolbar">
-  <input id="map-search" type="search" placeholder="Filter locations" aria-label="Filter locations">
-  <div id="filters" class="filters"></div>
-  <label class="toggle"><input type="checkbox" id="hide-found"> Hide found</label>
+<div class="atlas" id="atlas" data-zoom="far">
+  <div id="map" class="atlas-map" role="region" aria-label="Map of Leonida"></div>
+
+  <aside class="atlas-panel" aria-label="Places on the map">
+    <button type="button" class="sheet-handle" data-sheet aria-expanded="false">
+      <span class="grip" aria-hidden="true"></span><span>Places <b id="atlas-count">0</b></span>
+    </button>
+    <div class="panel-head">
+      <label class="atlas-search">
+        <span class="sr-only">Search places</span>
+        <input id="atlas-search" type="search" placeholder="Search places, fences, banks…" autocomplete="off">
+        <kbd aria-hidden="true">/</kbd>
+      </label>
+      <div class="chips-row" id="atlas-chips" role="group" aria-label="Show categories"></div>
+      <div class="panel-meta">
+        <label class="toggle"><input type="checkbox" id="atlas-hide-found"> Hide found</label>
+        <span id="atlas-progress"></span>
+      </div>
+      <div class="found-bar"><span id="atlas-bar"></span></div>
+    </div>
+    <div class="atlas-list" id="atlas-list"></div>
+  </aside>
+
+  <aside class="atlas-detail" id="atlas-detail" hidden aria-live="polite"></aside>
+
+  <div class="atlas-tools" role="toolbar" aria-label="Map controls">
+    <button type="button" data-zoom-in aria-label="Zoom in" title="Zoom in">+</button>
+    <button type="button" data-zoom-out aria-label="Zoom out" title="Zoom out">&minus;</button>
+    <button type="button" data-home aria-label="Reset view" title="Reset view">&#8634;</button>
+    <button type="button" data-full aria-label="Full screen" title="Full screen">&#x26F6;</button>
+  </div>
+  <p class="atlas-note">Schematic map, not to scale. Pins sit in the right town or district; exact spots are added as they're verified.</p>
 </div>
-<div id="map" class="map" role="application" aria-label="Interactive map"></div>
-<div class="map-foot">
-  <span id="map-status"></span>
-  <span class="center" id="found-count"></span>
-  <span class="right"><a href="/submit/">Submit a location</a></span>
-</div>
+<p class="atlas-foot-note">Schematic map, not to scale. Pins sit in the right town or district; exact spots are added as they're verified.</p>
+
 <div id="edit-box" class="edit-box" hidden>
   <p class="kicker">Edit mode</p>
-  <p class="small">Click the map. The marker JSON is copied for you to paste into <code>data/markers.json</code>.</p>
+  <p class="small">Click the map. A new place is copied for you to paste into <code>data/markers.json</code>.</p>
   <textarea id="edit-out" rows="7" readonly></textarea>
 </div>
+
+<section class="region-strip">
+  <h2 class="rule-head center">Explore by region</h2>
+  <div class="region-grid">{region_cards}</div>
+</section>
+
 <section class="map-list">
-  <h2 class="rule-head center">All locations</h2>
-  {'<div class="cols">' + ''.join(groups) + '</div>' if groups else '<p class="muted">Locations go up from launch day.</p>'}
+  <h2 class="rule-head center">Every place on the map</h2>
+  <div class="cols">{''.join(groups)}</div>
+  <p class="center small muted">Found something we're missing? <a href="/submit/">Submit a location</a>.</p>
 </section>
 <script type="application/json" id="map-config">{cfg_json}</script>"""
         head = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">'
         scripts = ('<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>'
                    '<script src="/assets/map.js" defer></script>')
-        self.write("/map/", "GTA 6 Interactive Map: Locations & Collectibles",
-                   "Searchable GTA 6 map with collectibles, money spots, safehouses and secrets. Mark what you've found.",
-                   body, head_extra=head, scripts=scripts)
+        self.write("/map/", "GTA 6 Map of Leonida: Interactive Locations", 
+                   "Interactive GTA 6 map of Leonida: fences, bank vaults, safehouses, money spots and missables. Search, filter and track what you've found.",
+                   body, head_extra=head, scripts=scripts, seo_title="GTA 6 Map: Interactive Leonida Map")
 
     def build_submit(self):
         opts = "".join(f'<option value="{esc(c["id"])}">{esc(c["label"])}</option>'
-                       for c in self.map["categories"] if c["id"] != "region")
+                       for c in self.map["categories"])
         body = article_head("Reader finds", "Submit a find",
                             "Found a collectible, money method, secret or mistake on the site? We check every submission, and credit you if you want.")
         body += f"""
@@ -686,7 +756,7 @@ class Site:
         items = []
         for u in self.updates[:40]:
             when = dt.datetime.fromisoformat(u["time"])
-            text = strip_tags(inline(u["text"]))
+            text = html.unescape(strip_tags(inline(u["text"])))
             link = re.search(r"\]\((/[^)\s]*)\)", u["text"])
             href = self.abs_url(link.group(1) if link else "/updates/")
             title = text if len(text) <= 100 else text[:97].rsplit(" ", 1)[0] + "…"

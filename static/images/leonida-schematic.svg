@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" width="2048" height="2048">
+  <!-- Schematic map of Leonida for Six Star Map. Not traced from any official map; shapes are approximate. -->
+  <defs>
+    <radialGradient id="sea" cx="62%" cy="58%" r="80%">
+      <stop offset="0" stop-color="#174257"/>
+      <stop offset="0.55" stop-color="#103245"/>
+      <stop offset="1" stop-color="#0a2231"/>
+    </radialGradient>
+    <linearGradient id="land" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#e2d8bd"/>
+      <stop offset="1" stop-color="#d6caa8"/>
+    </linearGradient>
+    <pattern id="grid" width="128" height="128" patternUnits="userSpaceOnUse">
+      <path d="M128 0H0V128" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="2"/>
+    </pattern>
+    <pattern id="marsh" width="36" height="22" patternUnits="userSpaceOnUse">
+      <path d="M4 16h10M20 8h10" stroke="#7d8a5a" stroke-opacity="0.45" stroke-width="2.4" stroke-linecap="round"/>
+    </pattern>
+    <pattern id="hills" width="60" height="40" patternUnits="userSpaceOnUse">
+      <path d="M6 32l12-14 12 14M34 26l10-12 10 12" fill="none" stroke="#8a7a55" stroke-opacity="0.38" stroke-width="2.4" stroke-linejoin="round"/>
+    </pattern>
+    <pattern id="city" width="18" height="18" patternUnits="userSpaceOnUse">
+      <rect x="3" y="3" width="8" height="8" fill="#9b8e70" fill-opacity="0.42"/>
+    </pattern>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="2048" height="2048" fill="url(#sea)"/>
+  <rect width="2048" height="2048" fill="url(#grid)"/>
+
+  <!-- shallow-water halo -->
+  <g fill="none" stroke="#2f6f86" stroke-opacity="0.35" stroke-width="44" stroke-linejoin="round">
+    <path d="M120 300 L400 280 L800 262 L1200 250 L1520 256 L1620 290 L1615 460 L1596 700 L1570 960 L1528 1220 L1460 1420 L1370 1560 L1270 1612 L1180 1560 L1090 1420 L1000 1240 L940 1040 L900 820 L870 660 L760 610 L600 640 L440 610 L300 580 L180 560 L120 470 Z"/>
+  </g>
+
+  <!-- mainland -->
+  <path filter="url(#shadow)" fill="url(#land)" stroke="#5e5338" stroke-width="5" stroke-linejoin="round"
+        d="M120 300 L400 280 L800 262 L1200 250 L1520 256 L1620 290 L1615 460 L1596 700 L1570 960 L1528 1220 L1460 1420 L1370 1560 L1270 1612 L1180 1560 L1090 1420 L1000 1240 L940 1040 L900 820 L870 660 L760 610 L600 640 L440 610 L300 580 L180 560 L120 470 Z"/>
+
+  <!-- terrain textures -->
+  <path fill="url(#hills)" d="M1110 272 L1510 262 L1600 300 L1596 500 L1120 548 Z"/>
+  <path fill="url(#marsh)" d="M990 1090 L1380 1090 L1340 1300 L1370 1490 L1290 1570 L1200 1550 L1110 1410 L1030 1240 Z"/>
+  <path fill="url(#city)" d="M1408 1100 L1540 1096 L1522 1220 L1462 1410 L1392 1470 L1366 1300 Z"/>
+  <path fill="url(#city)" d="M300 520 L470 512 L480 590 L300 576 Z"/>
+  <path fill="url(#city)" d="M820 380 L960 370 L960 480 L830 490 Z"/>
+
+  <!-- rivers -->
+  <g fill="none" stroke="#3d7a91" stroke-width="5" stroke-linecap="round" stroke-opacity="0.75">
+    <path d="M1180 560 C1150 700 1210 820 1170 960 S1200 1130 1160 1260"/>
+    <path d="M700 300 C720 400 680 470 720 600"/>
+  </g>
+
+  <!-- Vice City barrier island and port -->
+  <g fill="url(#land)" stroke="#5e5338" stroke-width="4" stroke-linejoin="round">
+    <path d="M1566 1150 C1582 1200 1584 1300 1560 1392 L1548 1388 C1566 1300 1566 1210 1552 1154 Z"/>
+    <ellipse cx="1528" cy="1262" rx="18" ry="10"/>
+  </g>
+
+  <!-- the Keys -->
+  <g fill="url(#land)" stroke="#5e5338" stroke-width="4">
+    <ellipse cx="1300" cy="1650" rx="34" ry="14" transform="rotate(-30 1300 1650)"/>
+    <ellipse cx="1236" cy="1686" rx="44" ry="15" transform="rotate(-24 1236 1686)"/>
+    <ellipse cx="1132" cy="1724" rx="96" ry="30" transform="rotate(-16 1132 1724)"/>
+    <ellipse cx="1004" cy="1776" rx="48" ry="15" transform="rotate(-12 1004 1776)"/>
+    <ellipse cx="916" cy="1812" rx="40" ry="13" transform="rotate(-9 916 1812)"/>
+    <ellipse cx="836" cy="1840" rx="32" ry="12" transform="rotate(-6 836 1840)"/>
+    <ellipse cx="764" cy="1862" rx="24" ry="10"/>
+  </g>
+  <!-- causeway linking the Keys -->
+  <path d="M1312 1610 L1300 1650 L1236 1686 L1132 1724 L1004 1776 L916 1812 L836 1840 L764 1862"
+        fill="none" stroke="#5e5338" stroke-width="3" stroke-dasharray="10 8" stroke-opacity="0.8"/>
+
+  <!-- compass -->
+  <g transform="translate(1860 210)" font-family="Georgia, serif">
+    <circle r="78" fill="none" stroke="#e2d8bd" stroke-opacity="0.5" stroke-width="2"/>
+    <path d="M0 -70 L14 0 L0 70 L-14 0 Z" fill="#e2d8bd" fill-opacity="0.75"/>
+    <path d="M0 -70 L14 0 L-14 0 Z" fill="#d2401f"/>
+    <text y="-90" fill="#e2d8bd" fill-opacity="0.8" font-size="30" text-anchor="middle" font-weight="700">N</text>
+  </g>
+
+  <!-- cartouche -->
+  <g transform="translate(1950 1880)" font-family="Georgia, serif" text-anchor="end">
+    <text fill="#e2d8bd" fill-opacity="0.85" font-size="54" font-weight="700" letter-spacing="10">LEONIDA</text>
+    <text y="44" fill="#e2d8bd" fill-opacity="0.55" font-size="24" letter-spacing="4">SCHEMATIC · NOT TO SCALE</text>
+  </g>
+</svg>

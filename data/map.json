@@ -1,16 +1,313 @@
 {
-  "image": "/images/map-placeholder.svg",
+  "image": "/images/leonida-schematic.svg",
   "width": 2048,
   "height": 2048,
-  "placeholder": "Placeholder map. Region labels are approximate; exact pins go up as locations are verified.",
+  "note": "Schematic map. Pins sit in the right town or district; exact in-game spots are added as they're verified.",
+  "regions": [
+    {
+      "id": "vice-city",
+      "name": "Vice City",
+      "color": "#d2401f",
+      "label": [
+        1480,
+        1030
+      ],
+      "polygon": [
+        [
+          1400,
+          1080
+        ],
+        [
+          1548,
+          1080
+        ],
+        [
+          1528,
+          1220
+        ],
+        [
+          1462,
+          1420
+        ],
+        [
+          1380,
+          1500
+        ],
+        [
+          1350,
+          1300
+        ]
+      ],
+      "desc": "The neon city at the heart of the story, inspired by Miami. Home to Ocean Beach, Little Cuba, Downtown and VC Port, the cruise-ship capital of the world.",
+      "facts": [
+        "Biggest bank vaults in the game",
+        "Fences Tyrone, Yasmani and Randy",
+        "Where the story heads after Port Gellhorn"
+      ],
+      "guide": "/guides/gta-6-map-regions/#vice-city"
+    },
+    {
+      "id": "leonida-keys",
+      "name": "Leonida Keys",
+      "color": "#2e8fa3",
+      "label": [
+        1010,
+        1965
+      ],
+      "polygon": [
+        [
+          1190,
+          1595
+        ],
+        [
+          1330,
+          1600
+        ],
+        [
+          1320,
+          1700
+        ],
+        [
+          1010,
+          1850
+        ],
+        [
+          740,
+          1930
+        ],
+        [
+          710,
+          1840
+        ],
+        [
+          1000,
+          1730
+        ]
+      ],
+      "desc": "A tropical island chain where the game begins. Key Lento is Jason's home and the Chapter 1 hub.",
+      "facts": [
+        "Jason's house and the missable house projects",
+        "Early fences Brian and Donnie",
+        "Kenton's treasure dives"
+      ],
+      "guide": "/guides/gta-6-map-regions/#leonida-keys"
+    },
+    {
+      "id": "grassrivers",
+      "name": "Grassrivers",
+      "color": "#5f8a3a",
+      "label": [
+        1170,
+        1440
+      ],
+      "polygon": [
+        [
+          960,
+          1060
+        ],
+        [
+          1400,
+          1080
+        ],
+        [
+          1350,
+          1300
+        ],
+        [
+          1380,
+          1500
+        ],
+        [
+          1300,
+          1590
+        ],
+        [
+          1200,
+          1570
+        ],
+        [
+          1100,
+          1420
+        ],
+        [
+          1010,
+          1240
+        ]
+      ],
+      "desc": "Swamp country with alligators and mangroves. Players have reported a Bigfoot encounter in the swamps.",
+      "facts": [
+        "Wetlands and wildlife",
+        "Reported Bigfoot encounter"
+      ],
+      "guide": "/guides/gta-6-map-regions/#grassrivers"
+    },
+    {
+      "id": "port-gellhorn",
+      "name": "Port Gellhorn",
+      "color": "#b07a2a",
+      "label": [
+        390,
+        400
+      ],
+      "polygon": [
+        [
+          130,
+          310
+        ],
+        [
+          640,
+          290
+        ],
+        [
+          640,
+          620
+        ],
+        [
+          440,
+          612
+        ],
+        [
+          300,
+          582
+        ],
+        [
+          180,
+          562
+        ],
+        [
+          130,
+          470
+        ]
+      ],
+      "desc": "A faded former vacation town and the Chapter 2 base. Moses buys stolen cars here.",
+      "facts": [
+        "Moses and Dunk",
+        "Rodgers Ranch & Shooting Range",
+        "La Cascara Motel operation"
+      ],
+      "guide": "/guides/gta-6-map-regions/#port-gellhorn"
+    },
+    {
+      "id": "ambrosia",
+      "name": "Ambrosia",
+      "color": "#8a5a9e",
+      "label": [
+        880,
+        590
+      ],
+      "polygon": [
+        [
+          640,
+          290
+        ],
+        [
+          1100,
+          262
+        ],
+        [
+          1100,
+          560
+        ],
+        [
+          880,
+          660
+        ],
+        [
+          760,
+          612
+        ],
+        [
+          640,
+          620
+        ]
+      ],
+      "desc": "An inland industrial town, home to the Allied Crystal sugar refinery and a local biker gang.",
+      "facts": [
+        "Allied Crystal sugar refinery",
+        "A train tunnel to the north"
+      ],
+      "guide": "/guides/gta-6-map-regions/#ambrosia"
+    },
+    {
+      "id": "mount-kalaga",
+      "name": "Mount Kalaga",
+      "color": "#3f6b4f",
+      "label": [
+        1290,
+        320
+      ],
+      "polygon": [
+        [
+          1100,
+          262
+        ],
+        [
+          1520,
+          256
+        ],
+        [
+          1618,
+          292
+        ],
+        [
+          1612,
+          520
+        ],
+        [
+          1100,
+          560
+        ]
+      ],
+      "desc": "A national park on Leonida's northern border, with hunting, fishing and off-road trails.",
+      "facts": [
+        "Hunting and fishing",
+        "Off-road trails"
+      ],
+      "guide": "/guides/gta-6-map-regions/#mount-kalaga"
+    }
+  ],
   "categories": [
-    { "id": "region", "label": "Regions", "color": "#e9ecf1", "icon": "", "style": "label" },
-    { "id": "safehouse", "label": "Safehouses", "color": "#3ad1c6", "icon": "⌂" },
-    { "id": "money", "label": "Money spots", "color": "#7ee07e", "icon": "$" },
-    { "id": "collectible", "label": "Collectibles", "color": "#ffb347", "icon": "◆" },
-    { "id": "weapon", "label": "Weapons", "color": "#ff7a59", "icon": "✦" },
-    { "id": "vehicle", "label": "Vehicles", "color": "#8ab4ff", "icon": "▲" },
-    { "id": "shop", "label": "Shops & services", "color": "#c79bff", "icon": "●" },
-    { "id": "secret", "label": "Secrets & easter eggs", "color": "#ff5c8a", "icon": "?" }
+    {
+      "id": "safehouse",
+      "label": "Safehouses",
+      "color": "#2e8fa3",
+      "icon": "⌂"
+    },
+    {
+      "id": "fence",
+      "label": "Fences & buyers",
+      "color": "#2f7d4f",
+      "icon": "$"
+    },
+    {
+      "id": "robbery",
+      "label": "Robberies & banks",
+      "color": "#d2401f",
+      "icon": "◆"
+    },
+    {
+      "id": "shop",
+      "label": "Shops",
+      "color": "#8a5a9e",
+      "icon": "●"
+    },
+    {
+      "id": "activity",
+      "label": "Activities",
+      "color": "#b07a2a",
+      "icon": "▲"
+    },
+    {
+      "id": "landmark",
+      "label": "Landmarks",
+      "color": "#3b3833",
+      "icon": "★"
+    },
+    {
+      "id": "secret",
+      "label": "Secrets & missables",
+      "color": "#c2185b",
+      "icon": "?"
+    }
   ]
 }

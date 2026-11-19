@@ -48,19 +48,38 @@ Supported Markdown: `#` headings (each `#` section goes in the table of contents
 - `> [!TBD] What goes here` → yellow "Fill in at launch" box. Search for `[!TBD]` to find gaps.
 - `> [!TIP] ...` and `> [!WARN] ...` → callouts
 
-## Adding map markers fast
+## The map
 
-1. Open http://localhost:8080/map/?edit=1
-2. Click the spot. A ready-made marker is copied to your clipboard.
-3. Paste it into `data/markers.json`, then fill in `id` (unique, lowercase-with-dashes), `category`, `title` and `desc`.
+`/map/` is a schematic map of Leonida (`static/images/leonida-schematic.svg`, drawn for this site and not traced from Rockstar's map).
 
-Marker fields: `id`, `category` (one of the ids in `data/map.json`), `title`, `pos` ([x, y] pixels on the map image), `region`, `desc`, `verified` (true once you've seen it in-game), `credit` (who found it).
+- **Zoomed out:** each region shows its name and a count of places. Click a region, or zoom in, to see the pins.
+- **Places panel (left):** search (press `/`), category chips (shift-click to show only one category), "Hide found", a progress bar, and a list grouped by region that stays in sync with the map.
+- **Detail card (right):** opens when you pick a place or region. It has "Mark found", "Copy link" and a link to the matching guide.
+- **Links:** `/map/#m=<place-id>` opens a place and `/map/#r=<region-id>` opens a region.
+- **Phones:** the panel and the detail card become bottom sheets.
 
-Every marker gets a shareable link: `/map/#m=<id>`.
+### Adding a place
 
-## Swapping in a real map
+1. Open http://localhost:8080/map/?edit=1 and click the spot. The JSON for a new place is copied to your clipboard.
+2. Paste it into `data/markers.json` and fill it in:
 
-Put the image in `static/images/`, then update `image`, `width` and `height` in `data/map.json` to match its pixel size. Remove `placeholder`. Marker positions are in image pixels, so re-place them with edit mode.
+| Field | What it is |
+|---|---|
+| `id` | Unique, lowercase-with-dashes (used in share links) |
+| `category` | One of the category ids in `data/map.json` |
+| `title`, `desc` | Name and one or two sentences of verified info |
+| `region` | One of the region ids in `data/map.json` |
+| `place` | Town or district, e.g. "Key Lento" |
+| `pos` | [x, y] in map-image pixels (edit mode fills this in) |
+| `chapter` | When it unlocks, e.g. "Chapter 2", or `null` |
+| `area` | Optional radius. Draws a dashed circle for "somewhere around here" |
+| `link`, `linkText` | The guide section with the details |
+
+Regions (outline, label position, colour, description, facts) live in `data/map.json`.
+
+### Swapping in a real map
+
+If you get a map image you're allowed to use, put it in `static/images/` and update `image`, `width` and `height` in `data/map.json`. Then re-place region outlines and pins with edit mode, since positions are in image pixels.
 
 ## Deploying
 
