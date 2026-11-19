@@ -309,5 +309,441 @@
       "color": "#c2185b",
       "icon": "?"
     }
+  ],
+  "roadsNote": "Roads marked illustrative are schematic placeholders. Replace them with traced roads (status: traced) using /map/?edit=1.",
+  "roads": [
+    {
+      "id": "coast-highway",
+      "kind": "highway",
+      "status": "illustrative",
+      "points": [
+        [
+          1470,
+          1440
+        ],
+        [
+          1500,
+          1360
+        ],
+        [
+          1530,
+          1200
+        ],
+        [
+          1555,
+          960
+        ],
+        [
+          1578,
+          700
+        ],
+        [
+          1590,
+          460
+        ],
+        [
+          1560,
+          320
+        ]
+      ]
+    },
+    {
+      "id": "panhandle-highway",
+      "kind": "highway",
+      "status": "illustrative",
+      "points": [
+        [
+          180,
+          520
+        ],
+        [
+          420,
+          540
+        ],
+        [
+          640,
+          520
+        ],
+        [
+          880,
+          470
+        ],
+        [
+          1100,
+          430
+        ],
+        [
+          1380,
+          430
+        ],
+        [
+          1590,
+          460
+        ]
+      ]
+    },
+    {
+      "id": "cross-state-highway",
+      "kind": "highway",
+      "status": "illustrative",
+      "points": [
+        [
+          880,
+          470
+        ],
+        [
+          960,
+          700
+        ],
+        [
+          1040,
+          900
+        ],
+        [
+          1120,
+          1100
+        ],
+        [
+          1200,
+          1350
+        ],
+        [
+          1240,
+          1548
+        ]
+      ]
+    },
+    {
+      "id": "grassrivers-crossing",
+      "kind": "highway",
+      "status": "illustrative",
+      "points": [
+        [
+          1000,
+          1150
+        ],
+        [
+          1200,
+          1215
+        ],
+        [
+          1366,
+          1250
+        ]
+      ]
+    },
+    {
+      "id": "keys-causeway",
+      "kind": "highway",
+      "status": "illustrative",
+      "points": [
+        [
+          1242,
+          1560
+        ],
+        [
+          1300,
+          1650
+        ],
+        [
+          1236,
+          1686
+        ],
+        [
+          1132,
+          1724
+        ],
+        [
+          1004,
+          1776
+        ],
+        [
+          916,
+          1812
+        ],
+        [
+          836,
+          1840
+        ],
+        [
+          764,
+          1862
+        ]
+      ]
+    },
+    {
+      "id": "local-1",
+      "kind": "road",
+      "status": "illustrative",
+      "points": [
+        [
+          420,
+          540
+        ],
+        [
+          470,
+          420
+        ],
+        [
+          560,
+          330
+        ]
+      ]
+    },
+    {
+      "id": "local-2",
+      "kind": "road",
+      "status": "illustrative",
+      "points": [
+        [
+          880,
+          470
+        ],
+        [
+          860,
+          560
+        ],
+        [
+          800,
+          610
+        ]
+      ]
+    },
+    {
+      "id": "local-3",
+      "kind": "road",
+      "status": "illustrative",
+      "points": [
+        [
+          1100,
+          430
+        ],
+        [
+          1180,
+          560
+        ],
+        [
+          1260,
+          700
+        ]
+      ]
+    },
+    {
+      "id": "local-4",
+      "kind": "road",
+      "status": "illustrative",
+      "points": [
+        [
+          1380,
+          430
+        ],
+        [
+          1400,
+          600
+        ],
+        [
+          1430,
+          700
+        ],
+        [
+          1500,
+          820
+        ]
+      ]
+    },
+    {
+      "id": "local-5",
+      "kind": "road",
+      "status": "illustrative",
+      "points": [
+        [
+          1040,
+          900
+        ],
+        [
+          1260,
+          860
+        ],
+        [
+          1400,
+          900
+        ],
+        [
+          1550,
+          900
+        ]
+      ]
+    },
+    {
+      "id": "local-6",
+      "kind": "road",
+      "status": "illustrative",
+      "points": [
+        [
+          1200,
+          1350
+        ],
+        [
+          1300,
+          1300
+        ],
+        [
+          1380,
+          1320
+        ]
+      ]
+    },
+    {
+      "id": "local-7",
+      "kind": "road",
+      "status": "illustrative",
+      "points": [
+        [
+          300,
+          560
+        ],
+        [
+          250,
+          450
+        ],
+        [
+          260,
+          330
+        ]
+      ]
+    },
+    {
+      "id": "railway",
+      "kind": "rail",
+      "status": "illustrative",
+      "points": [
+        [
+          1420,
+          1360
+        ],
+        [
+          1470,
+          1160
+        ],
+        [
+          1500,
+          1000
+        ],
+        [
+          1470,
+          760
+        ],
+        [
+          1300,
+          620
+        ],
+        [
+          1100,
+          540
+        ],
+        [
+          950,
+          470
+        ],
+        [
+          900,
+          360
+        ],
+        [
+          888,
+          300
+        ]
+      ]
+    },
+    {
+      "id": "ambrosia-tunnel",
+      "kind": "tunnel",
+      "status": "illustrative",
+      "points": [
+        [
+          888,
+          300
+        ],
+        [
+          884,
+          262
+        ]
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "name": "Key Lento",
+      "kind": "town",
+      "pos": [
+        1132,
+        1668
+      ]
+    },
+    {
+      "name": "Hamlet",
+      "kind": "town",
+      "pos": [
+        1242,
+        1514
+      ]
+    },
+    {
+      "name": "Ocean Beach",
+      "kind": "district",
+      "pos": [
+        1630,
+        1250
+      ],
+      "water": true
+    },
+    {
+      "name": "Downtown",
+      "kind": "district",
+      "pos": [
+        1494,
+        1204
+      ]
+    },
+    {
+      "name": "Little Cuba",
+      "kind": "district",
+      "pos": [
+        1388,
+        1306
+      ]
+    },
+    {
+      "name": "La Perle",
+      "kind": "district",
+      "pos": [
+        1462,
+        1120
+      ]
+    },
+    {
+      "name": "Balsero",
+      "kind": "district",
+      "pos": [
+        1398,
+        1400
+      ]
+    },
+    {
+      "name": "VCIA",
+      "kind": "district",
+      "pos": [
+        1370,
+        1170
+      ]
+    },
+    {
+      "name": "Mt. Kalaga",
+      "kind": "feature",
+      "pos": [
+        1370,
+        270
+      ]
+    }
   ]
 }

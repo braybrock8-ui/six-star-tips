@@ -30,6 +30,47 @@
   });
   var bounds = [[0, 0], [H, W]];
   L.imageOverlay(cfg.image, bounds).addTo(map);
+  // layer order: regions (overlay 400) < roads < buildings < pins (600) < names
+  map.createPane("roads").style.zIndex = 410;
+  map.createPane("bldg").style.zIndex = 420;
+  map.createPane("names").style.zIndex = 640;
+  map.getPane("names").style.pointerEvents = "none";
+
+  // Atlas grid: 128px squares, A-P across, 1-16 down (matches the frame printed on the map)
+  function gridRef(p) {
+    var col = "ABCDEFGHIJKLMNOP".charAt(Math.max(0, Math.min(15, Math.floor(p[0] / 128))));
+    return col + (Math.max(0, Math.min(15, Math.floor(p[1] / 128))) + 1);
+  }
+
+  // ---------- roads (from data, so they can be replaced with traced ones)
+  var ROAD_STYLES = {
+    highway: [{ color: "#7a6a45", weight: 7 }, { color: "#f6efdc", weight: 3.5 }],
+    road: [{ color: "#8f8264", weight: 2.5 }],
+    rail: [{ color: "#3b3833", weight: 2.5 }, { color: "#3b3833", weight: 8, dashArray: "1 9", lineCap: "butt" }],
+    tunnel: [{ color: "#3b3833", weight: 2.5, dashArray: "5 5" }]
+  };
+  var roadLayers = [];
+  (cfg.roads || []).forEach(function (rd) {
+    var styles = ROAD_STYLES[rd.kind] || ROAD_STYLES.road;
+    var traced = rd.status === "traced";
+    styles.forEach(function (st) {
+      var line = L.polyline(rd.points.map(toLL), Object.assign({
+        pane: "roads", interactive: false, lineJoin: "round", lineCap: "round",
+        opacity: traced ? 1 : 0.72
+      }, st));
+      line.baseWeight = st.weight * (traced ? 1.15 : 1);
+      line.addTo(map);
+      roadLayers.push(line);
+    });
+  });
+
+  // ---------- town, district and feature names (shown as you zoom in)
+  (cfg.labels || []).forEach(function (lb) {
+    L.marker(toLL(lb.pos), {
+      pane: "names", interactive: false, keyboard: false,
+      icon: L.divIcon({ className: "name-label k-" + lb.kind + (lb.water ? " on-water" : ""), html: "<span>" + esc(lb.name) + "</span>", iconSize: null })
+    }).addTo(map);
+  });
   // generous pan limits so the floating panels never trap part of the land underneath them
   map.setMaxBounds(L.latLngBounds(bounds).pad(0.6));
   var landBounds = L.latLngBounds([toLL([90, 1960]), toLL([1680, 230])]);
@@ -99,8 +140,19 @@
       it.area = L.circle(toLL(m.pos), {
         radius: m.area, color: c.color, weight: 2, dashArray: "6 7", fillColor: c.color, fillOpacity: 0.1, interactive: false
       });
+    } else {
+      // building footprint + name, shown only when zoomed right in
+      var s = 15;
+      it.bldg = L.rectangle([toLL([m.pos[0] - s, m.pos[1] + s]), toLL([m.pos[0] + s, m.pos[1] - s])], {
+        pane: "bldg", color: c.color, weight: 2, fillColor: c.color, fillOpacity: 0.32, interactive: false
+      });
     }
-    it.hay = [m.title, m.place, it.r && it.r.name, m.desc, c.label, m.chapter].join(" ").toLowerCase();
+    it.name = L.marker(toLL(m.pos), {
+      pane: "names", interactive: false, keyboard: false,
+      icon: L.divIcon({ className: "name-label k-place", html: "<span>" + esc(m.title) + "</span>", iconSize: null })
+    });
+    m.grid = gridRef(m.pos);
+    it.hay = [m.title, m.place, it.r && it.r.name, m.desc, c.label, m.chapter, m.grid].join(" ").toLowerCase();
     items.push(it);
     byId[m.id] = it;
     c.items.push(it);
@@ -148,7 +200,7 @@
           (selected === it.m.id ? " is-selected" : "") + '" data-id="' + it.m.id + '">' +
           '<span class="dot" style="--c:' + it.c.color + '">' + esc(it.c.icon) + "</span>" +
           '<span class="t">' + esc(it.m.title) + "<small>" + esc(it.m.place || "") +
-          (it.m.chapter ? " · " + esc(it.m.chapter) : "") + "</small></span>" +
+          (it.m.chapter ? " · " + esc(it.m.chapter) : "") + " · " + esc(it.m.grid) + "</small></span>" +
           (f ? '<span class="tick" title="Found">✓</span>' : "") + "</button></li>";
       });
       html += "</ul></section>";
@@ -184,11 +236,16 @@
 
   // ---------- apply everything
   // Zoomed out, each region collapses to its label plus a count; zoom in (or pick a region) to see pins.
-  var NEAR = -0.75;
-  function near() { return map.getZoom() >= NEAR; }
+  // Three tiers: far (region badges), near (pins + town names), close (buildings + every name).
+  var NEAR = -0.75, CLOSE = 0.25;
+  function tier() { var z = map.getZoom(); return z >= CLOSE ? "close" : z >= NEAR ? "near" : "far"; }
+  function near() { return tier() !== "far"; }
+  function show(layer, on) { if (!layer) return; if (on) { if (!map.hasLayer(layer)) layer.addTo(map); } else map.removeLayer(layer); }
   function apply() {
-    var isNear = near();
-    root.dataset.zoom = isNear ? "near" : "far";
+    var t = tier(), isNear = t !== "far", isClose = t === "close";
+    root.dataset.zoom = t;
+    var scale = isClose ? 1.8 : isNear ? 1.3 : 1;
+    roadLayers.forEach(function (l) { l.setStyle({ weight: l.baseWeight * scale }); });
     cfg.regions.forEach(function (r) {
       var n = r.items.filter(visible).length;
       var el = r.label.getElement();
@@ -199,10 +256,14 @@
       }
     });
     items.forEach(function (it) {
-      var v = visible(it) && (isNear || selected === it.m.id);
-      if (v) { if (!map.hasLayer(it.mk)) it.mk.addTo(map); if (it.area && !map.hasLayer(it.area)) it.area.addTo(map); }
-      else { map.removeLayer(it.mk); if (it.area) map.removeLayer(it.area); }
+      var vis = visible(it);
+      var v = vis && (isNear || selected === it.m.id);
+      show(it.mk, v);
+      show(it.area, v);
+      show(it.bldg, vis && isClose);
+      show(it.name, vis && isClose);
     });
+    setTimeout(declutter, 0);
     chipBox.querySelectorAll(".chip-cat").forEach(function (b) {
       b.setAttribute("aria-pressed", cats[b.dataset.cat].on ? "true" : "false");
     });
@@ -211,6 +272,25 @@
     prefs.off = cfg.categories.filter(function (c) { return !c.on; }).map(function (c) { return c.id; });
     store.set("atlas:prefs", prefs);
   }
+  // Hide place names that would overlap one already shown. The selected place goes first,
+  // then larger categories in data order. Pins stay visible and keep their hover names.
+  function declutter() {
+    if (root.dataset.zoom !== "close") return;
+    var shown = items.filter(function (it) { return map.hasLayer(it.name) && it.name.getElement(); });
+    shown.sort(function (a, b) { return (b.m.id === selected) - (a.m.id === selected); });
+    var placed = [];
+    shown.forEach(function (it) {
+      var el = it.name.getElement();
+      el.style.visibility = "visible";
+      var r = el.firstChild.getBoundingClientRect();
+      var hit = placed.some(function (p) {
+        return !(r.right + 4 < p.left || r.left - 4 > p.right || r.bottom + 2 < p.top || r.top - 2 > p.bottom);
+      });
+      if (hit) el.style.visibility = "hidden"; else placed.push(r);
+    });
+  }
+  map.on("zoomend", function () { setTimeout(declutter, 0); });
+
   function resetFilters() {
     cfg.categories.forEach(function (c) { c.on = true; });
     query = ""; search.value = "";
@@ -242,7 +322,8 @@
       '<p class="detail-cat" style="--c:' + it.c.color + '"><span class="dot"></span>' + esc(it.c.label) + "</p>" +
       "<h2>" + esc(m.title) + "</h2>" +
       '<p class="detail-meta">' + esc(m.place || "") + (it.r ? " · " + esc(it.r.name) : "") +
-      (m.chapter ? ' · <span class="ch">' + esc(m.chapter) + "</span>" : "") + "</p>" +
+      (m.chapter ? ' · <span class="ch">' + esc(m.chapter) + "</span>" : "") +
+      ' · <span class="grid-ref" title="Atlas grid square">Grid ' + esc(m.grid) + "</span></p>" +
       '<p class="detail-desc">' + esc(m.desc) + "</p>" +
       '<p class="detail-acc">' + (m.area ? "Somewhere in the dashed area." : "Approximate position: placed in " + esc(m.place || "the right area") + ".") +
       " The exact spot gets pinned once it's verified.</p>" +
@@ -379,10 +460,10 @@
   document.addEventListener("fullscreenchange", function () { setTimeout(function () { map.invalidateSize(); }, 60); });
 
   map.on("click", function (e) { if (editMode) editClick(e); else if (selected || selectedRegion) closeDetail(); });
-  var wasNear = null;
+  var wasTier = null;
   map.on("zoomend", function () {
-    var n = near();
-    if (n !== wasNear) { wasNear = n; apply(); }
+    var t = tier();
+    if (t !== wasTier) { wasTier = t; apply(); }
   });
 
   document.addEventListener("keydown", function (e) {
@@ -400,24 +481,60 @@
   window.addEventListener("hashchange", fromHash);
 
   // ---------- edit mode: /map/?edit=1
-  var tempPin = null;
+  // "Place" mode: click once to get a new place. "Trace road" mode: click along a road you've
+  // driven in-game, then Finish. Paste the JSON into data/markers.json or the "roads" list in data/map.json.
+  var tempPin = null, trace = [], traceLine = null, traceDots = null;
+  function editEl(id) { return document.getElementById(id); }
+  function editMode_() { var r = document.querySelector('input[name="edit-mode"]:checked'); return r ? r.value : "pin"; }
+  function copyOut(text) {
+    editEl("edit-out").value = text;
+    if (navigator.clipboard) navigator.clipboard.writeText(text).catch(function () {});
+  }
+  function roadJSON() {
+    return JSON.stringify({
+      id: "road-" + Date.now().toString(36), kind: editEl("edit-kind").value, status: "traced", points: trace
+    }) + ",";
+  }
+  function redrawTrace() {
+    var lls = trace.map(toLL);
+    if (!traceLine) traceLine = L.polyline(lls, { color: "#ffcf5c", weight: 4, dashArray: "8 6" }).addTo(map);
+    else traceLine.setLatLngs(lls);
+    if (traceDots) map.removeLayer(traceDots);
+    traceDots = L.layerGroup(lls.map(function (ll) { return L.circleMarker(ll, { radius: 4, color: "#ffcf5c", weight: 2 }); })).addTo(map);
+    editEl("edit-count").textContent = trace.length + " point" + (trace.length === 1 ? "" : "s");
+    if (trace.length > 1) copyOut(roadJSON());
+  }
   function editClick(e) {
     var xy = toXY(e.latlng);
-    var out = document.getElementById("edit-out");
-    out.value = JSON.stringify({
+    if (editMode_() === "road") { trace.push(xy); redrawTrace(); return; }
+    copyOut(JSON.stringify({
       id: "new-place", category: "landmark", title: "", region: "", place: "", pos: xy,
       chapter: null, desc: "", link: "", linkText: ""
-    }, null, 2) + ",";
-    if (navigator.clipboard) navigator.clipboard.writeText(out.value).catch(function () {});
+    }, null, 2) + ",");
     if (tempPin) map.removeLayer(tempPin);
     tempPin = L.circleMarker(e.latlng, { radius: 9, color: "#ffcf5c", weight: 3 }).addTo(map);
   }
-  if (editMode) document.getElementById("edit-box").hidden = false;
+  if (editMode) {
+    editEl("edit-box").hidden = false;
+    editEl("edit-undo").addEventListener("click", function () { trace.pop(); redrawTrace(); });
+    editEl("edit-finish").addEventListener("click", function () {
+      if (trace.length < 2) return;
+      copyOut(roadJSON());
+      L.polyline(trace.map(toLL), { color: "#ffcf5c", weight: 3, pane: "roads" }).addTo(map); // keep it visible
+      trace = []; redrawTrace();
+      editEl("edit-count").textContent = "Copied. Paste it into the roads list in data/map.json.";
+    });
+    document.addEventListener("keydown", function (e) {
+      if (editMode_() !== "road") return;
+      if (e.key === "Enter") editEl("edit-finish").click();
+      if (e.key === "Backspace" && !/input|textarea|select/i.test(e.target.tagName)) { e.preventDefault(); editEl("edit-undo").click(); }
+    });
+  }
 
   // ---------- go
   root.atlasMap = map; // handy for debugging in the console
   fitHome();
-  wasNear = near();
+  wasTier = tier();
   apply();
   fromHash();
   window.addEventListener("resize", function () { map.invalidateSize(); });

@@ -77,6 +77,24 @@ Supported Markdown: `#` headings (each `#` section goes in the table of contents
 
 Regions (outline, label position, colour, description, facts) live in `data/map.json`.
 
+### Zoom levels
+
+- **Zoomed out:** region names with place counts.
+- **Middle:** pins, town names and roads.
+- **Zoomed in:** a building square for every place, its name, and district names. Overlapping names hide automatically; the selected place always shows.
+
+Every place also gets an **atlas grid reference** (A–P across, 1–16 down, matching the frame printed on the map), shown in the list and the detail card.
+
+### Roads: making them accurate
+
+Roads live in the `roads` list in `data/map.json`, not in the image. The starter roads are `"status": "illustrative"`: rough placeholders, drawn slightly faded. To make them accurate, trace them from your own play. Rockstar's map and fan maps built from it are copyrighted, so don't trace those.
+
+1. Open `/map/?edit=1`, choose **Trace a road**, and pick its type (highway, road, railway or tunnel).
+2. Zoom in and click along the road. Backspace undoes a point; Enter or **Finish road** copies it.
+3. Paste it into `roads`. It's saved as `"status": "traced"` and draws solid and slightly bolder. Delete the illustrative road it replaces.
+
+Town, district and feature names are in the `labels` list (`kind`: town, district or feature; add `"water": true` for names that sit on the sea).
+
 ### Swapping in a real map
 
 If you get a map image you're allowed to use, put it in `static/images/` and update `image`, `width` and `height` in `data/map.json`. Then re-place region outlines and pins with edit mode, since positions are in image pixels.

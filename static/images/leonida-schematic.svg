@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" width="2048" height="2048">
-  <!-- Schematic map of Leonida for Six Star Map. Not traced from any official map; shapes are approximate. -->
+  <!-- Six Star Map: schematic atlas of Leonida. Drawn for this site, not traced from any official map.
+       Coastline, terrain, roads and rail are illustrative. Grid squares are 128px (A-P across, 1-16 down). -->
   <defs>
     <radialGradient id="sea" cx="62%" cy="58%" r="80%">
       <stop offset="0" stop-color="#174257"/>
@@ -7,82 +8,230 @@
       <stop offset="1" stop-color="#0a2231"/>
     </radialGradient>
     <linearGradient id="land" x1="0" y1="0" x2="0.3" y2="1">
-      <stop offset="0" stop-color="#e2d8bd"/>
-      <stop offset="1" stop-color="#d6caa8"/>
+      <stop offset="0" stop-color="#e4dabf"/>
+      <stop offset="1" stop-color="#d8cca9"/>
     </linearGradient>
+    <path id="coast" d="M120 300 L400 280 L800 262 L1200 250 L1520 256 L1620 290 L1615 460 L1596 700 L1570 960 L1528 1220 L1460 1420 L1370 1560 L1270 1612 L1180 1560 L1090 1420 L1000 1240 L940 1040 L900 820 L870 660 L760 610 L600 640 L440 610 L300 580 L180 560 L120 470 Z"/>
+    <g id="keys">
+      <ellipse cx="1300" cy="1650" rx="34" ry="14" transform="rotate(-30 1300 1650)"/>
+      <ellipse cx="1236" cy="1686" rx="44" ry="15" transform="rotate(-24 1236 1686)"/>
+      <ellipse cx="1132" cy="1724" rx="96" ry="30" transform="rotate(-16 1132 1724)"/>
+      <ellipse cx="1004" cy="1776" rx="48" ry="15" transform="rotate(-12 1004 1776)"/>
+      <ellipse cx="916" cy="1812" rx="40" ry="13" transform="rotate(-9 916 1812)"/>
+      <ellipse cx="836" cy="1840" rx="32" ry="12" transform="rotate(-6 836 1840)"/>
+      <ellipse cx="764" cy="1862" rx="24" ry="10"/>
+      <ellipse cx="1030" cy="1652" rx="34" ry="16" transform="rotate(-20 1030 1652)"/>
+      <ellipse cx="1070" cy="1630" rx="16" ry="8"/>
+    </g>
+    <clipPath id="landclip"><use href="#coast"/></clipPath>
+
     <pattern id="grid" width="128" height="128" patternUnits="userSpaceOnUse">
-      <path d="M128 0H0V128" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="2"/>
+      <path d="M128 0H0V128" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="2"/>
+    </pattern>
+    <pattern id="landgrid" width="128" height="128" patternUnits="userSpaceOnUse">
+      <path d="M128 0H0V128" fill="none" stroke="#5e5338" stroke-opacity="0.08" stroke-width="2"/>
+    </pattern>
+    <pattern id="waves" width="90" height="40" patternUnits="userSpaceOnUse">
+      <path d="M8 22 q8 -8 16 0 t16 0" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="2"/>
+      <path d="M52 8 q8 -8 16 0 t16 0" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="2"/>
     </pattern>
     <pattern id="marsh" width="36" height="22" patternUnits="userSpaceOnUse">
-      <path d="M4 16h10M20 8h10" stroke="#7d8a5a" stroke-opacity="0.45" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M4 16h10M20 8h10" stroke="#6f8a4a" stroke-opacity="0.5" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M9 16v-5M25 8v-5" stroke="#6f8a4a" stroke-opacity="0.35" stroke-width="1.6"/>
+    </pattern>
+    <pattern id="mangrove" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="7" cy="8" r="3.4" fill="#5f7d44" fill-opacity="0.45"/>
+      <circle cx="19" cy="19" r="3" fill="#5f7d44" fill-opacity="0.4"/>
+    </pattern>
+    <pattern id="forest" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M10 6l6 11h-12zM30 24l6 11h-12z" fill="#55704a" fill-opacity="0.42"/>
+    </pattern>
+    <pattern id="farm" width="44" height="44" patternUnits="userSpaceOnUse" patternTransform="rotate(20)">
+      <path d="M0 6h44M0 14h44M0 22h44" stroke="#a8995f" stroke-opacity="0.22" stroke-width="2"/>
+      <path d="M0 34h22M0 40h22" stroke="#8e9a5a" stroke-opacity="0.22" stroke-width="2"/>
     </pattern>
     <pattern id="hills" width="60" height="40" patternUnits="userSpaceOnUse">
-      <path d="M6 32l12-14 12 14M34 26l10-12 10 12" fill="none" stroke="#8a7a55" stroke-opacity="0.38" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M6 32l12-14 12 14M34 26l10-12 10 12" fill="none" stroke="#7d6c48" stroke-opacity="0.42" stroke-width="2.4" stroke-linejoin="round"/>
     </pattern>
-    <pattern id="city" width="18" height="18" patternUnits="userSpaceOnUse">
-      <rect x="3" y="3" width="8" height="8" fill="#9b8e70" fill-opacity="0.42"/>
+    <pattern id="streets" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M16 0H0V16" fill="none" stroke="#8c7f62" stroke-opacity="0.55" stroke-width="1.4"/>
     </pattern>
     <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
       <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.35"/>
     </filter>
   </defs>
 
+  <!-- ===== SEA ===== -->
   <rect width="2048" height="2048" fill="url(#sea)"/>
+  <rect width="2048" height="2048" fill="url(#waves)"/>
   <rect width="2048" height="2048" fill="url(#grid)"/>
 
-  <!-- shallow-water halo -->
-  <g fill="none" stroke="#2f6f86" stroke-opacity="0.35" stroke-width="44" stroke-linejoin="round">
-    <path d="M120 300 L400 280 L800 262 L1200 250 L1520 256 L1620 290 L1615 460 L1596 700 L1570 960 L1528 1220 L1460 1420 L1370 1560 L1270 1612 L1180 1560 L1090 1420 L1000 1240 L940 1040 L900 820 L870 660 L760 610 L600 640 L440 610 L300 580 L180 560 L120 470 Z"/>
+  <!-- depth bands (bathymetry) -->
+  <g fill="none" stroke="#5aa0b8" stroke-linejoin="round">
+    <use href="#coast" stroke-width="200" stroke-opacity="0.05"/>
+    <use href="#coast" stroke-width="130" stroke-opacity="0.07"/>
+    <use href="#coast" stroke-width="70" stroke-opacity="0.11"/>
+  </g>
+  <g fill="#5aa0b8" stroke="#5aa0b8" stroke-linejoin="round">
+    <use href="#keys" stroke-width="150" fill-opacity="0.05" stroke-opacity="0.05"/>
+    <use href="#keys" stroke-width="70" fill-opacity="0.08" stroke-opacity="0.1"/>
+  </g>
+  <!-- depth contour lines -->
+  <g fill="none" stroke="#9fd3df" stroke-opacity="0.22" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round">
+    <use href="#coast" transform="translate(1024 1024) scale(1.075) translate(-1024 -1024)"/>
+    <use href="#coast" transform="translate(1024 1024) scale(1.15) translate(-1024 -1024)"/>
+  </g>
+  <!-- reef line south of the Keys -->
+  <path d="M1345 1700 L1260 1742 L1150 1784 L1020 1830 L918 1866 L826 1894 L742 1914" fill="none"
+        stroke="#bfe6ec" stroke-opacity="0.55" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+
+  <!-- ===== LAND ===== -->
+  <use href="#coast" filter="url(#shadow)" fill="url(#land)" stroke="#5e5338" stroke-width="5" stroke-linejoin="round"/>
+
+  <g clip-path="url(#landclip)">
+    <!-- terrain fills -->
+    <path fill="url(#forest)" d="M120 300 L1110 262 L1110 420 L700 440 L120 470 Z"/>
+    <path fill="url(#hills)" d="M1110 262 L1520 256 L1620 300 L1612 520 L1110 560 Z"/>
+    <path fill="url(#forest)" d="M1110 262 L1520 256 L1620 300 L1612 520 L1110 560 Z" opacity="0.6"/>
+    <path fill="url(#farm)" d="M880 640 L1110 560 L1610 520 L1590 900 L1560 1070 L1400 1085 L960 1060 L920 860 Z"/>
+    <path fill="url(#marsh)" d="M960 1060 L1400 1085 L1350 1300 L1380 1500 L1300 1590 L1200 1570 L1100 1420 L1010 1240 Z"/>
+    <path fill="url(#mangrove)" d="M890 760 L990 760 L1080 1180 L1200 1500 L1150 1560 L1060 1420 L990 1240 L930 1020 Z"/>
+    <rect width="2048" height="2048" fill="url(#landgrid)"/>
+
+    <!-- lakes and rivers -->
+    <g fill="#2f6a80" stroke="#24566a" stroke-width="3">
+      <ellipse cx="1262" cy="808" rx="56" ry="34" transform="rotate(-12 1262 808)"/>
+      <ellipse cx="1392" cy="702" rx="22" ry="13"/>
+      <ellipse cx="724" cy="512" rx="24" ry="13"/>
+      <ellipse cx="1180" cy="980" rx="18" ry="11"/>
+    </g>
+    <g fill="none" stroke="#2f6a80" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1180 560 C1150 700 1230 760 1220 790" stroke-width="5"/>
+      <path d="M1262 842 C1240 920 1200 960 1186 1000 S1210 1130 1170 1260 S1210 1420 1190 1540" stroke-width="5"/>
+      <path d="M700 300 C720 400 680 470 718 500" stroke-width="5"/>
+      <path d="M520 300 C540 380 500 450 530 600" stroke-width="4"/>
+      <path d="M1440 560 C1430 640 1460 700 1400 704" stroke-width="3.5"/>
+    </g>
+
+    <!-- mountain peaks (Mount Kalaga) -->
+    <g stroke="#5e5338" stroke-width="3" stroke-linejoin="round">
+      <path d="M1268 392 l34 -62 l34 62 z" fill="#cdbf98"/>
+      <path d="M1302 330 l34 62 h-34 z" fill="#b5a57c"/>
+      <path d="M1330 372 l40 -80 l40 80 z" fill="#d3c6a0"/>
+      <path d="M1370 292 l40 80 h-40 z" fill="#b5a57c"/>
+      <path d="M1404 398 l30 -54 l30 54 z" fill="#cdbf98"/>
+      <path d="M1434 344 l30 54 h-30 z" fill="#b5a57c"/>
+      <path d="M1470 360 l26 -46 l26 46 z" fill="#cdbf98"/>
+      <path d="M1496 314 l26 46 h-26 z" fill="#b5a57c"/>
+      <path d="M1220 420 l22 -40 l22 40 z" fill="#cdbf98"/>
+      <path d="M1242 380 l22 40 h-22 z" fill="#b5a57c"/>
+      <path d="M1362 304 l8 -12 l8 12" fill="#f3efe6" stroke="none"/>
+    </g>
+
   </g>
 
-  <!-- mainland -->
-  <path filter="url(#shadow)" fill="url(#land)" stroke="#5e5338" stroke-width="5" stroke-linejoin="round"
-        d="M120 300 L400 280 L800 262 L1200 250 L1520 256 L1620 290 L1615 460 L1596 700 L1570 960 L1528 1220 L1460 1420 L1370 1560 L1270 1612 L1180 1560 L1090 1420 L1000 1240 L940 1040 L900 820 L870 660 L760 610 L600 640 L440 610 L300 580 L180 560 L120 470 Z"/>
-
-  <!-- terrain textures -->
-  <path fill="url(#hills)" d="M1110 272 L1510 262 L1600 300 L1596 500 L1120 548 Z"/>
-  <path fill="url(#marsh)" d="M990 1090 L1380 1090 L1340 1300 L1370 1490 L1290 1570 L1200 1550 L1110 1410 L1030 1240 Z"/>
-  <path fill="url(#city)" d="M1408 1100 L1540 1096 L1522 1220 L1462 1410 L1392 1470 L1366 1300 Z"/>
-  <path fill="url(#city)" d="M300 520 L470 512 L480 590 L300 576 Z"/>
-  <path fill="url(#city)" d="M820 380 L960 370 L960 480 L830 490 Z"/>
-
-  <!-- rivers -->
-  <g fill="none" stroke="#3d7a91" stroke-width="5" stroke-linecap="round" stroke-opacity="0.75">
-    <path d="M1180 560 C1150 700 1210 820 1170 960 S1200 1130 1160 1260"/>
-    <path d="M700 300 C720 400 680 470 720 600"/>
+  <!-- ===== TOWNS ===== -->
+  <!-- Vice City -->
+  <g>
+    <path d="M1408 1100 L1540 1096 L1522 1220 L1462 1410 L1392 1470 L1366 1300 Z" fill="#cdbf9e" stroke="#7a6a45" stroke-width="2"/>
+    <path d="M1408 1100 L1540 1096 L1522 1220 L1462 1410 L1392 1470 L1366 1300 Z" fill="url(#streets)"/>
+    <g fill="none" stroke="#f6efdc" stroke-width="3.5" stroke-linecap="round">
+      <path d="M1380 1180 L1530 1170"/><path d="M1376 1260 L1514 1250"/><path d="M1384 1340 L1486 1330"/>
+      <path d="M1450 1100 L1440 1440"/><path d="M1500 1100 L1470 1380"/>
+    </g>
+    <rect x="1462" y="1222" width="40" height="34" fill="#a39373" stroke="#7a6a45" stroke-width="1.5"/>
+    <g fill="#7f9a5a" fill-opacity="0.75">
+      <rect x="1414" y="1196" width="26" height="18"/><rect x="1418" y="1356" width="22" height="16"/><rect x="1480" y="1300" width="16" height="22"/>
+    </g>
+    <!-- VCIA runways -->
+    <g fill="#8d8064" transform="rotate(-18 1392 1196)">
+      <rect x="1350" y="1186" width="86" height="7"/><rect x="1362" y="1204" width="70" height="6"/>
+    </g>
+  </g>
+  <!-- Ocean Beach barrier island with hotel strip -->
+  <g>
+    <path d="M1566 1150 C1582 1200 1584 1300 1560 1392 L1548 1388 C1566 1300 1566 1210 1552 1154 Z" fill="url(#land)" stroke="#5e5338" stroke-width="4"/>
+    <path d="M1576 1170 C1586 1230 1586 1310 1570 1380" fill="none" stroke="#f6efdc" stroke-width="3" stroke-dasharray="2 4"/>
+    <path d="M1558 1180 L1528 1196 M1560 1300 L1520 1320" stroke="#7a6a45" stroke-width="4"/>
+  </g>
+  <!-- VC Port island, piers and cranes -->
+  <g stroke="#5e5338" stroke-width="3">
+    <ellipse cx="1528" cy="1262" rx="20" ry="11" fill="url(#land)"/>
+    <path d="M1514 1270 v14 M1526 1272 v14 M1538 1270 v14" stroke-width="2.5"/>
+    <path d="M1520 1256 l6 -12 h8" fill="none" stroke-width="2"/>
+  </g>
+  <!-- Port Gellhorn -->
+  <g>
+    <path d="M296 520 L476 510 L488 592 L300 578 Z" fill="#cdbf9e" stroke="#7a6a45" stroke-width="2"/>
+    <path d="M296 520 L476 510 L488 592 L300 578 Z" fill="url(#streets)"/>
+    <path d="M330 588 v20 M356 590 v22 M382 592 v20 M408 594 v22" stroke="#5e5338" stroke-width="3"/>
+    <rect x="470" y="472" width="34" height="22" fill="none" stroke="#7a6a45" stroke-width="2" stroke-dasharray="4 3"/>
+  </g>
+  <!-- Ambrosia, with the refinery stacks -->
+  <g>
+    <path d="M820 384 L962 372 L966 484 L826 494 Z" fill="#cdbf9e" stroke="#7a6a45" stroke-width="2"/>
+    <path d="M820 384 L962 372 L966 484 L826 494 Z" fill="url(#streets)"/>
+    <g fill="#6e6250">
+      <rect x="914" y="436" width="7" height="26"/><rect x="926" y="430" width="7" height="32"/><rect x="938" y="440" width="7" height="22"/>
+    </g>
+  </g>
+  <!-- Key Lento town and Hamlet -->
+  <use href="#keys" fill="url(#land)" stroke="#5e5338" stroke-width="4"/>
+  <g>
+    <path d="M1090 1708 L1170 1700 L1176 1736 L1096 1746 Z" fill="#cdbf9e" stroke="#7a6a45" stroke-width="1.5"/>
+    <path d="M1090 1708 L1170 1700 L1176 1736 L1096 1746 Z" fill="url(#streets)"/>
+    <path d="M1216 1530 L1268 1528 L1270 1566 L1220 1570 Z" fill="#cdbf9e" stroke="#7a6a45" stroke-width="1.5"/>
+    <path d="M1216 1530 L1268 1528 L1270 1566 L1220 1570 Z" fill="url(#streets)"/>
+  </g>
+  <!-- ===== ATLAS FRAME: grid refs A-P across, 1-16 down ===== -->
+  <g font-family="Georgia, serif" font-size="26" font-weight="700" fill="#e2d8bd" fill-opacity="0.55" text-anchor="middle">
+    <rect x="12" y="12" width="2024" height="2024" fill="none" stroke="#e2d8bd" stroke-opacity="0.35" stroke-width="3"/>
+    <rect x="24" y="24" width="2000" height="2000" fill="none" stroke="#e2d8bd" stroke-opacity="0.18" stroke-width="1.5"/>
+    <text x="64" y="52">A</text><text x="192" y="52">B</text><text x="320" y="52">C</text><text x="448" y="52">D</text>
+    <text x="576" y="52">E</text><text x="704" y="52">F</text><text x="832" y="52">G</text><text x="960" y="52">H</text>
+    <text x="1088" y="52">I</text><text x="1216" y="52">J</text><text x="1344" y="52">K</text><text x="1472" y="52">L</text>
+    <text x="1600" y="52">M</text><text x="1728" y="52">N</text><text x="1856" y="52">O</text><text x="1984" y="52">P</text>
+    <text x="64" y="2016">A</text><text x="192" y="2016">B</text><text x="320" y="2016">C</text><text x="448" y="2016">D</text>
+    <text x="576" y="2016">E</text><text x="704" y="2016">F</text><text x="832" y="2016">G</text><text x="960" y="2016">H</text>
+    <text x="1088" y="2016">I</text><text x="1216" y="2016">J</text><text x="1344" y="2016">K</text><text x="1472" y="2016">L</text>
+    <text x="1600" y="2016">M</text><text x="1728" y="2016">N</text><text x="1856" y="2016">O</text><text x="1984" y="2016">P</text>
+    <text x="2016" y="73">1</text><text x="2016" y="201">2</text><text x="2016" y="329">3</text><text x="2016" y="457">4</text>
+    <text x="2016" y="585">5</text><text x="2016" y="713">6</text><text x="2016" y="841">7</text><text x="2016" y="969">8</text>
+    <text x="2016" y="1097">9</text><text x="2016" y="1225">10</text><text x="2016" y="1353">11</text><text x="2016" y="1481">12</text>
+    <text x="2016" y="1609">13</text><text x="2016" y="1737">14</text><text x="2016" y="1865">15</text><text x="2016" y="1993">16</text>
+    <text x="40" y="73">1</text><text x="40" y="201">2</text><text x="40" y="329">3</text><text x="40" y="457">4</text>
+    <text x="40" y="585">5</text><text x="40" y="713">6</text><text x="40" y="841">7</text><text x="40" y="969">8</text>
+    <text x="40" y="1097">9</text><text x="40" y="1225">10</text><text x="40" y="1353">11</text><text x="40" y="1481">12</text>
+    <text x="40" y="1609">13</text><text x="40" y="1737">14</text><text x="40" y="1865">15</text><text x="40" y="1993">16</text>
   </g>
 
-  <!-- Vice City barrier island and port -->
-  <g fill="url(#land)" stroke="#5e5338" stroke-width="4" stroke-linejoin="round">
-    <path d="M1566 1150 C1582 1200 1584 1300 1560 1392 L1548 1388 C1566 1300 1566 1210 1552 1154 Z"/>
-    <ellipse cx="1528" cy="1262" rx="18" ry="10"/>
+  <!-- compass rose -->
+  <g transform="translate(1850 220)" font-family="Georgia, serif">
+    <circle r="86" fill="none" stroke="#e2d8bd" stroke-opacity="0.45" stroke-width="2"/>
+    <circle r="70" fill="none" stroke="#e2d8bd" stroke-opacity="0.25" stroke-width="1.5" stroke-dasharray="3 6"/>
+    <path d="M0 -76 L14 0 L0 76 L-14 0 Z" fill="#e2d8bd" fill-opacity="0.7"/>
+    <path d="M-76 0 L0 -10 L76 0 L0 10 Z" fill="#e2d8bd" fill-opacity="0.4"/>
+    <path d="M0 -76 L14 0 L-14 0 Z" fill="#d2401f"/>
+    <text y="-98" fill="#e2d8bd" fill-opacity="0.85" font-size="30" text-anchor="middle" font-weight="700">N</text>
   </g>
 
-  <!-- the Keys -->
-  <g fill="url(#land)" stroke="#5e5338" stroke-width="4">
-    <ellipse cx="1300" cy="1650" rx="34" ry="14" transform="rotate(-30 1300 1650)"/>
-    <ellipse cx="1236" cy="1686" rx="44" ry="15" transform="rotate(-24 1236 1686)"/>
-    <ellipse cx="1132" cy="1724" rx="96" ry="30" transform="rotate(-16 1132 1724)"/>
-    <ellipse cx="1004" cy="1776" rx="48" ry="15" transform="rotate(-12 1004 1776)"/>
-    <ellipse cx="916" cy="1812" rx="40" ry="13" transform="rotate(-9 916 1812)"/>
-    <ellipse cx="836" cy="1840" rx="32" ry="12" transform="rotate(-6 836 1840)"/>
-    <ellipse cx="764" cy="1862" rx="24" ry="10"/>
-  </g>
-  <!-- causeway linking the Keys -->
-  <path d="M1312 1610 L1300 1650 L1236 1686 L1132 1724 L1004 1776 L916 1812 L836 1840 L764 1862"
-        fill="none" stroke="#5e5338" stroke-width="3" stroke-dasharray="10 8" stroke-opacity="0.8"/>
-
-  <!-- compass -->
-  <g transform="translate(1860 210)" font-family="Georgia, serif">
-    <circle r="78" fill="none" stroke="#e2d8bd" stroke-opacity="0.5" stroke-width="2"/>
-    <path d="M0 -70 L14 0 L0 70 L-14 0 Z" fill="#e2d8bd" fill-opacity="0.75"/>
-    <path d="M0 -70 L14 0 L-14 0 Z" fill="#d2401f"/>
-    <text y="-90" fill="#e2d8bd" fill-opacity="0.8" font-size="30" text-anchor="middle" font-weight="700">N</text>
+  <!-- key / legend -->
+  <g transform="translate(1660 1560)" font-family="Georgia, serif" font-size="22" fill="#e2d8bd" fill-opacity="0.8">
+    <rect x="-20" y="-40" width="330" height="236" fill="#0a2231" fill-opacity="0.55" stroke="#e2d8bd" stroke-opacity="0.35"/>
+    <text x="0" y="-8" font-size="20" letter-spacing="4" font-weight="700">KEY</text>
+    <path d="M0 28 h56" stroke="#7a6a45" stroke-width="11"/><path d="M0 28 h56" stroke="#f6efdc" stroke-width="5"/>
+    <text x="74" y="36">Road</text>
+    <path d="M0 68 h56" stroke="#e2d8bd" stroke-width="4"/><path d="M0 68 h56" stroke="#e2d8bd" stroke-width="12" stroke-dasharray="2 12"/>
+    <text x="74" y="76">Railway</text>
+    <rect x="0" y="96" width="56" height="22" fill="#cdbf9e"/><rect x="0" y="96" width="56" height="22" fill="url(#streets)"/>
+    <text x="74" y="114">Town</text>
+    <rect x="0" y="136" width="56" height="22" fill="#d8cca9"/><rect x="0" y="136" width="56" height="22" fill="url(#marsh)"/>
+    <text x="74" y="154">Wetland</text>
   </g>
 
   <!-- cartouche -->
-  <g transform="translate(1950 1880)" font-family="Georgia, serif" text-anchor="end">
-    <text fill="#e2d8bd" fill-opacity="0.85" font-size="54" font-weight="700" letter-spacing="10">LEONIDA</text>
-    <text y="44" fill="#e2d8bd" fill-opacity="0.55" font-size="24" letter-spacing="4">SCHEMATIC · NOT TO SCALE</text>
+  <g transform="translate(1960 1930)" font-family="Georgia, serif" text-anchor="end">
+    <text fill="#e2d8bd" fill-opacity="0.85" font-size="50" font-weight="700" letter-spacing="10">LEONIDA</text>
+    <text y="38" fill="#e2d8bd" fill-opacity="0.55" font-size="20" letter-spacing="4">SCHEMATIC ATLAS · NOT TO SCALE</text>
   </g>
 </svg>

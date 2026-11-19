@@ -596,14 +596,23 @@ class Site:
     <button type="button" data-home aria-label="Reset view" title="Reset view">&#8634;</button>
     <button type="button" data-full aria-label="Full screen" title="Full screen">&#x26F6;</button>
   </div>
-  <p class="atlas-note">Schematic map, not to scale. Pins sit in the right town or district; exact spots are added as they're verified.</p>
+  <p class="atlas-note">Schematic atlas, not to scale. Roads are illustrative until traced; pins sit in the right town or district.</p>
 </div>
-<p class="atlas-foot-note">Schematic map, not to scale. Pins sit in the right town or district; exact spots are added as they're verified.</p>
+<p class="atlas-foot-note">Schematic atlas, not to scale. Roads are illustrative until traced; pins sit in the right town or district.</p>
 
 <div id="edit-box" class="edit-box" hidden>
   <p class="kicker">Edit mode</p>
-  <p class="small">Click the map. A new place is copied for you to paste into <code>data/markers.json</code>.</p>
-  <textarea id="edit-out" rows="7" readonly></textarea>
+  <div class="edit-modes">
+    <label><input type="radio" name="edit-mode" value="pin" checked> Place a pin</label>
+    <label><input type="radio" name="edit-mode" value="road"> Trace a road</label>
+    <select id="edit-kind" aria-label="Road type"><option value="highway">Highway</option><option value="road">Road</option><option value="rail">Railway</option><option value="tunnel">Tunnel</option></select>
+    <button type="button" class="btn-sm" id="edit-undo">Undo point</button>
+    <button type="button" class="btn-sm btn-accent" id="edit-finish">Finish road</button>
+    <span class="small muted" id="edit-count"></span>
+  </div>
+  <p class="small"><b>Place a pin:</b> click once and the JSON is copied for <code>data/markers.json</code>.
+  <b>Trace a road:</b> click along a road you've driven in-game (zoom in for accuracy), then press Finish or Enter. Backspace undoes a point. Paste the result into the <code>roads</code> list in <code>data/map.json</code>, then delete any illustrative road it replaces.</p>
+  <textarea id="edit-out" rows="6" readonly></textarea>
 </div>
 
 <section class="region-strip">

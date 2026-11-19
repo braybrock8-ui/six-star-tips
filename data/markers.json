@@ -1,34 +1,34 @@
 {
   "markers": [
-    { "id": "jasons-house", "category": "safehouse", "title": "Jason's house", "region": "leonida-keys", "place": "Key Lento", "pos": [1108, 1716], "chapter": "Chapter 1",
+    { "id": "jasons-house", "category": "safehouse", "title": "Jason's house", "region": "leonida-keys", "place": "Key Lento", "pos": [1115, 1711], "chapter": "Chapter 1",
       "desc": "Jason's waterfront home, lent to him by Brian Heder. Your first save point and cash stash. Four house projects here are missable: finish them before Coming Home.",
       "link": "/guides/gta-6-fix-railing-jasons-house/", "linkText": "House projects guide" },
 
-    { "id": "house-projects", "category": "secret", "title": "House projects (missable)", "region": "leonida-keys", "place": "Key Lento", "pos": [1090, 1700], "chapter": "Chapter 1",
+    { "id": "house-projects", "category": "secret", "title": "House projects (missable)", "region": "leonida-keys", "place": "Key Lento", "pos": [1080, 1749], "chapter": "Chapter 1",
       "desc": "Steps, roof, railing and bedroom wall at Jason's house. They lock once you pick Lucia up in Coming Home. The railing is at the back, by the outdoor gym, next to a ladder.",
       "link": "/guides/gta-6-fix-railing-jasons-house/", "linkText": "Where each one is" },
 
-    { "id": "three-sheets", "category": "robbery", "title": "Three Sheets liquor: Strange Noises", "region": "leonida-keys", "place": "Key Lento", "pos": [1146, 1722], "chapter": "Chapter 1",
+    { "id": "three-sheets", "category": "robbery", "title": "Three Sheets liquor: Strange Noises", "region": "leonida-keys", "place": "Key Lento", "pos": [1145, 1730], "chapter": "Chapter 1",
       "desc": "Finish Shirley's rum errand first, then check the strange noises out back. Clear the guards and loot the hidden stash.",
       "link": "/guides/gta-6-make-money-fast/#chapter-1", "linkText": "Money guide" },
 
-    { "id": "chucks", "category": "shop", "title": "Chuck's Tackle & Shot", "region": "leonida-keys", "place": "Key Lento", "pos": [1180, 1714], "chapter": "Chapter 1",
+    { "id": "chucks", "category": "shop", "title": "Chuck's Tackle & Shot", "region": "leonida-keys", "place": "Key Lento", "pos": [1180, 1692], "chapter": "Chapter 1",
       "desc": "An Ammu-Nation east of Jason's house. The first place to buy a face covering (gaiters and bandanas).",
       "link": "/guides/gta-6-faq/#where-do-you-get-a-mask", "linkText": "Masks FAQ" },
 
-    { "id": "fleeca-key-lento", "category": "robbery", "title": "Fleeca bank, Key Lento", "region": "leonida-keys", "place": "Key Lento", "pos": [1128, 1738], "chapter": "Chapter 3",
+    { "id": "fleeca-key-lento", "category": "robbery", "title": "Fleeca bank, Key Lento", "region": "leonida-keys", "place": "Key Lento", "pos": [1205, 1713], "chapter": "Chapter 3",
       "desc": "A small bank job ($5k to $20k, per PowerPyx). Small banks unlock after Credit Check.",
       "link": "/guides/gta-6-make-money-fast/#chapter-3-vice-city", "linkText": "Bank jobs" },
 
-    { "id": "brian", "category": "fence", "title": "Brian (fence)", "region": "leonida-keys", "place": "South of Key Lento", "pos": [1112, 1760], "chapter": "Chapter 1",
+    { "id": "brian", "category": "fence", "title": "Brian (fence)", "region": "leonida-keys", "place": "South of Key Lento", "pos": [1116, 1770], "chapter": "Chapter 1",
       "desc": "Buys narcotics after Lab Fees. Gone after Chapter 1. Hover his icon in-game to compare his price with Donnie's.",
       "link": "/guides/gta-6-make-money-fast/#every-fence-and-what-they-pay", "linkText": "All fences" },
 
-    { "id": "donnie", "category": "fence", "title": "Donnie (fence)", "region": "leonida-keys", "place": "South of Key Lento", "pos": [1156, 1764], "chapter": "Chapter 1",
+    { "id": "donnie", "category": "fence", "title": "Donnie (fence)", "region": "leonida-keys", "place": "South of Key Lento", "pos": [1182, 1752], "chapter": "Chapter 1",
       "desc": "Early buyer for product. Gone after the main mission Swamped.",
       "link": "/guides/gta-6-make-money-fast/#every-fence-and-what-they-pay", "linkText": "All fences" },
 
-    { "id": "kenton", "category": "activity", "title": "Kenton's treasure dives", "region": "leonida-keys", "place": "Key Lento", "pos": [1072, 1738], "chapter": "Chapter 1",
+    { "id": "kenton", "category": "activity", "title": "Kenton's treasure dives", "region": "leonida-keys", "place": "Key Lento", "pos": [1050, 1730], "chapter": "Chapter 1",
       "desc": "Unlocks after Island Dreams. Kenton pays once he sells your finds, which can take a few hours. Early wrecks are worth about $1,400.",
       "link": "/guides/gta-6-make-money-fast/#chapter-1", "linkText": "Money guide" },
 
@@ -40,7 +40,7 @@
       "desc": "After Clean Up After Donnie, Cal marks four sites around the Keys, each worth about $900. Two duffel bags hold all four. Bring an off-road vehicle.",
       "link": "/guides/gta-6-make-money-fast/#chapter-1", "linkText": "Money guide" },
 
-    { "id": "crashed-plane", "category": "secret", "title": "Crashed plane near Hamlet", "region": "leonida-keys", "place": "South of Hamlet", "pos": [1296, 1612], "chapter": "Chapter 1",
+    { "id": "crashed-plane", "category": "secret", "title": "Crashed plane near Hamlet", "region": "leonida-keys", "place": "South of Hamlet", "pos": [1262, 1590], "chapter": "Chapter 1",
       "desc": "Look for smoke in a field south of Hamlet. You'll find a pistol and sellable drugs, then an armed truck shows up.",
       "link": "/guides/gta-6-make-money-fast/#chapter-1", "linkText": "Money guide" },
 
@@ -88,15 +88,15 @@
       "desc": "Rockstar calls it the cruise-ship capital of the world.",
       "link": "/guides/gta-6-map-regions/#vice-city", "linkText": "Vice City" },
 
-    { "id": "lombank-downtown", "category": "robbery", "title": "Lombank vault, Downtown", "region": "vice-city", "place": "Downtown", "pos": [1486, 1236], "chapter": "End of Chapter 4",
+    { "id": "lombank-downtown", "category": "robbery", "title": "Lombank vault, Downtown", "region": "vice-city", "place": "Downtown", "pos": [1502, 1222], "chapter": "End of Chapter 4",
       "desc": "One of the two richest vaults: $135k to $205k (per PowerPyx). Robbing it gives an instant 4-star wanted level.",
       "link": "/guides/gta-6-make-money-fast/#end-of-chapter-4-bank-vaults", "linkText": "Bank vaults" },
 
-    { "id": "fleeca-downtown", "category": "robbery", "title": "Fleeca vault, Downtown", "region": "vice-city", "place": "Downtown", "pos": [1472, 1262], "chapter": "End of Chapter 4",
+    { "id": "fleeca-downtown", "category": "robbery", "title": "Fleeca vault, Downtown", "region": "vice-city", "place": "Downtown", "pos": [1470, 1282], "chapter": "End of Chapter 4",
       "desc": "Bank vault worth $100k to $150k (per PowerPyx).",
       "link": "/guides/gta-6-make-money-fast/#end-of-chapter-4-bank-vaults", "linkText": "Bank vaults" },
 
-    { "id": "lombank-ocean-beach", "category": "robbery", "title": "Lombank vault, Ocean Beach", "region": "vice-city", "place": "Ocean Beach", "pos": [1570, 1220], "chapter": "End of Chapter 4",
+    { "id": "lombank-ocean-beach", "category": "robbery", "title": "Lombank vault, Ocean Beach", "region": "vice-city", "place": "Ocean Beach", "pos": [1570, 1180], "chapter": "End of Chapter 4",
       "desc": "One of the two richest vaults: $135k to $205k (per PowerPyx). PowerPyx lists a second Lombank in Ocean Beach worth $75k to $135k.",
       "link": "/guides/gta-6-make-money-fast/#end-of-chapter-4-bank-vaults", "linkText": "Bank vaults" },
 
@@ -108,7 +108,7 @@
       "desc": "Bank vault worth $100k to $150k (per PowerPyx). VCIA is also where the hidden Catch Me If You Can trophy happens.",
       "link": "/guides/gta-6-make-money-fast/#end-of-chapter-4-bank-vaults", "linkText": "Bank vaults" },
 
-    { "id": "yasmani", "category": "fence", "title": "Yasmani (fence)", "region": "vice-city", "place": "Little Cuba", "pos": [1436, 1268], "chapter": "Chapter 3",
+    { "id": "yasmani", "category": "fence", "title": "Yasmani (fence)", "region": "vice-city", "place": "Little Cuba", "pos": [1424, 1276], "chapter": "Chapter 3",
       "desc": "Pays well for jewelry and marked bills, and starts the jewelry-store jobs ($10k to $25k each). Later sells security-van tips for $10,000.",
       "link": "/guides/gta-6-make-money-fast/#chapter-3-vice-city", "linkText": "Jewelry jobs" },
 
