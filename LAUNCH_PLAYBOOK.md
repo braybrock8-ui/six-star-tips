@@ -15,7 +15,7 @@ Don't try to be the wiki. The big wikis and IGN will own "GTA 6 walkthrough." Ow
 ## T-8 to T-1 days (now until launch)
 
 **Day 1–2: get it online**
-- [ ] Pick a name and domain. **Keep "GTA", "Rockstar" and "Grand Theft Auto" out of the domain.** Take-Two enforces trademarks hard. Using "GTA 6" in page titles to describe what the page is about is normal; using it in your brand isn't. The site is now **Six Star Map**: buy **sixstarmap.com** (it was unregistered on Nov 19, 2026), and optionally **sixstar.gg** as a short redirect. If you pick another domain, change `url` in `data/site.json`.
+- [ ] Pick a name and domain. **Keep "GTA", "Rockstar" and "Grand Theft Auto" out of the domain.** Take-Two enforces trademarks hard. Using "GTA 6" in page titles to describe what the page is about is normal; using it in your brand isn't. The site is now **Six Star Tips**: buy **sixstartips.com** (it was unregistered on Nov 19, 2026). Check **sixstar.gg** at a registrar too; it would make a good short redirect. If you pick another domain, change `url` in `data/site.json`.
 - [ ] Put the domain in `data/site.json` → `url`.
 - [ ] Deploy to Netlify (free): connect the repo, and `netlify.toml` already sets the build. Or run `python build.py` and drag the `dist/` folder onto app.netlify.com/drop.
 - [ ] Turn on Netlify Forms (Site → Forms) so `/submit/` works. Set up email notifications for new submissions.

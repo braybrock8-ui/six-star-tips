@@ -118,7 +118,7 @@ def front_matter(src):
 def main():
     site = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
     name = site["name"]
-    card(OUT / "default.png", "GTA 6 map · cheats · money", site["headline"], name)
+    card(OUT / "default.png", "GTA 6 cheats · money · videos", site["headline"], name)
     logo(OUT / "logo.png")
     count = 2
     for p in sorted((ROOT / "content/guides").glob("*.md")):

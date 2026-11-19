@@ -1,12 +1,12 @@
 {
-  "name": "Six Star Map",
-  "url": "https://sixstarmap.com",
+  "name": "Six Star Tips",
+  "url": "https://sixstartips.com",
   "homeTitle": "GTA 6 Guide: Cheats, Money, Videos & Tips (Verified)",
   "headline": "The GTA 6 field guide",
   "tagline": "Unofficial GTA 6 cheat codes, money methods, how-to guides and hand-picked videos. Every fact checked against multiple sources and updated as new info lands.",
   "launchDate": "2026-11-19T00:00:00-05:00",
   "launchNote": "GTA 6 unlocked at midnight local time on November 19, 2026.",
-  "contactEmail": "hello@sixstarmap.com",
+  "contactEmail": "hello@sixstartips.com",
   "showAdPlaceholders": true,
   "headHtml": "",
   "tipJar": {
@@ -25,6 +25,6 @@
     "cashapp": "",
     "venmo": ""
   },
-  "disclaimer": "Six Star Map is an unofficial fan guide. It is not affiliated with, endorsed by, or sponsored by Rockstar Games or Take-Two Interactive. Grand Theft Auto and related names are trademarks of their respective owners.",
+  "disclaimer": "Six Star Tips is an unofficial fan guide. It is not affiliated with, endorsed by, or sponsored by Rockstar Games or Take-Two Interactive. Grand Theft Auto and related names are trademarks of their respective owners.",
   "affiliateNote": "Some links on this site are affiliate links. If you buy through them we may earn a small commission at no extra cost to you."
 }
