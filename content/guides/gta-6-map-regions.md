@@ -10,7 +10,7 @@ updated: 2026-11-19
 ---
 GTA 6 is set in **Leonida**, Rockstar's take on Florida. Rockstar describes six regions. Below is what each one holds, based on Rockstar's descriptions and on the locations named in launch-day guides.
 
-> [!TIP] Rockstar's [official site](https://www.rockstargames.com/VI) has a free printable map of Leonida. Our [interactive map](/map/) lets you track what you've found.
+> [!TIP] Rockstar's [official site](https://www.rockstargames.com/VI) has a free printable map of Leonida.
 
 # Vice City
 

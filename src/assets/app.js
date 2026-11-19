@@ -103,6 +103,20 @@
     }
   }
 
+  // ---- videos: show a thumbnail until clicked, then load YouTube's privacy-enhanced player
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest && e.target.closest(".vid-play");
+    if (!btn) return;
+    var f = document.createElement("iframe");
+    f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(btn.dataset.yt) + "?autoplay=1&rel=0";
+    f.title = btn.getAttribute("aria-label") || "YouTube video";
+    f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    f.allowFullscreen = true;
+    f.referrerPolicy = "strict-origin-when-cross-origin";
+    f.className = "vid-frame";
+    btn.replaceWith(f);
+  });
+
   // ---- "5 min ago" times
   function rel(iso) {
     var d = new Date(iso), s = (Date.now() - d.getTime()) / 1000;

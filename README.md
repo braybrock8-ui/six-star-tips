@@ -48,56 +48,26 @@ Supported Markdown: `#` headings (each `#` section goes in the table of contents
 - `> [!TBD] What goes here` → yellow "Fill in at launch" box. Search for `[!TBD]` to find gaps.
 - `> [!TIP] ...` and `> [!WARN] ...` → callouts
 
-## The map
+## Video guides
 
-`/map/` is a schematic map of Leonida (`static/images/leonida-schematic.svg`, drawn for this site and not traced from Rockstar's map).
+`/videos/` lists hand-picked YouTube guides by topic, and each guide page ends with a "Prefer to watch?" strip from its matching topic.
 
-- **Zoomed out:** each region shows its name and a count of places. Click a region, or zoom in, to see the pins.
-- **Places panel (left):** search (press `/`), category chips (shift-click to show only one category), "Hide found", a progress bar, and a list grouped by region that stays in sync with the map.
-- **Detail card (right):** opens when you pick a place or region. It has "Mark found", "Copy link" and a link to the matching guide.
-- **Links:** `/map/#m=<place-id>` opens a place and `/map/#r=<region-id>` opens a region.
-- **Phones:** the panel and the detail card become bottom sheets.
+**To add a video**, add a line to `data/videos.json`:
 
-### Adding a place
+```
+{ "id": "XktW6z-qUmQ", "topic": "house", "added": "2026-11-19", "note": "Optional one-liner." }
+```
 
-1. Open http://localhost:8080/map/?edit=1 and click the spot. The JSON for a new place is copied to your clipboard.
-2. Paste it into `data/markers.json` and fill it in:
+- `id` is the part after `watch?v=` in the YouTube link.
+- `topic` must match one of the `topics` (each topic links to its written guide).
+- On the next build, the real title, channel and channel link are fetched from YouTube's official oEmbed endpoint and saved in `data/videos-cache.json`. Commit that file so builds work offline. A private or deleted video is skipped, never guessed.
+- `featured` at the top picks the "Start here" video on the videos page and the home page.
 
-| Field | What it is |
-|---|---|
-| `id` | Unique, lowercase-with-dashes (used in share links) |
-| `category` | One of the category ids in `data/map.json` |
-| `title`, `desc` | Name and one or two sentences of verified info |
-| `region` | One of the region ids in `data/map.json` |
-| `place` | Town or district, e.g. "Key Lento" |
-| `pos` | [x, y] in map-image pixels (edit mode fills this in) |
-| `chapter` | When it unlocks, e.g. "Chapter 2", or `null` |
-| `area` | Optional radius. Draws a dashed circle for "somewhere around here" |
-| `link`, `linkText` | The guide section with the details |
+Videos load as thumbnails, and YouTube's privacy-enhanced player only loads when someone presses play, so pages stay fast.
 
-Regions (outline, label position, colour, description, facts) live in `data/map.json`.
+**Curation rules:** no "unlimited money", "glitch", "leaked" or exploit videos, and prefer established channels. If a video shows claims we haven't confirmed (for example all 61 cheat codes), add a `note` saying so.
 
-### Zoom levels
-
-- **Zoomed out:** region names with place counts.
-- **Middle:** pins, town names and roads.
-- **Zoomed in:** a building square for every place, its name, and district names. Overlapping names hide automatically; the selected place always shows.
-
-Every place also gets an **atlas grid reference** (A–P across, 1–16 down, matching the frame printed on the map), shown in the list and the detail card.
-
-### Roads: making them accurate
-
-Roads live in the `roads` list in `data/map.json`, not in the image. The starter roads are `"status": "illustrative"`: rough placeholders, drawn slightly faded. To make them accurate, trace them from your own play. Rockstar's map and fan maps built from it are copyrighted, so don't trace those.
-
-1. Open `/map/?edit=1`, choose **Trace a road**, and pick its type (highway, road, railway or tunnel).
-2. Zoom in and click along the road. Backspace undoes a point; Enter or **Finish road** copies it.
-3. Paste it into `roads`. It's saved as `"status": "traced"` and draws solid and slightly bolder. Delete the illustrative road it replaces.
-
-Town, district and feature names are in the `labels` list (`kind`: town, district or feature; add `"water": true` for names that sit on the sea).
-
-### Swapping in a real map
-
-If you get a map image you're allowed to use, put it in `static/images/` and update `image`, `width` and `height` in `data/map.json`. Then re-place region outlines and pins with edit mode, since positions are in image pixels.
+The old interactive map was retired; `/map/` redirects to `/videos/` (see `static/_redirects`).
 
 ## Deploying
 

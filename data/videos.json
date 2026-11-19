@@ -1,0 +1,35 @@
+{
+  "featured": "dJDf76QVv70",
+  "topics": [
+    { "id": "start", "title": "Getting started", "desc": "What to know in your first hours, without spoilers.", "guide": "/guides/gta-6-first-48-hours/" },
+    { "id": "house", "title": "Jason's house & the railing", "desc": "All four missable house projects, including that hard-to-find railing.", "guide": "/guides/gta-6-fix-railing-jasons-house/" },
+    { "id": "money", "title": "Making money", "desc": "Early cash runs and where the big money comes from later.", "guide": "/guides/gta-6-make-money-fast/" },
+    { "id": "settings", "title": "Settings & HDR", "desc": "Fix a washed-out or too-dark picture and set up controls and camera.", "guide": "/guides/gta-6-best-settings/" },
+    { "id": "cheats", "title": "Cheats", "desc": "How cheats unlock and how to enter them on PS5 and Xbox.", "guide": "/guides/gta-6-cheats/" }
+  ],
+  "videos": [
+    { "id": "dJDf76QVv70", "topic": "start", "added": "2026-11-19" },
+    { "id": "6KKKc8pn_hM", "topic": "start", "added": "2026-11-19" },
+    { "id": "x8dhhsDEcZk", "topic": "start", "added": "2026-11-19", "note": "No spoilers." },
+    { "id": "wBVbxswlJ4A", "topic": "start", "added": "2026-11-19" },
+
+    { "id": "XktW6z-qUmQ", "topic": "house", "added": "2026-11-19", "note": "Covers all four projects." },
+    { "id": "0aASaR4ga78", "topic": "house", "added": "2026-11-19" },
+    { "id": "g_N2nTSCnTQ", "topic": "house", "added": "2026-11-19" },
+    { "id": "r7zWRL6U6q4", "topic": "house", "added": "2026-11-19" },
+
+    { "id": "BYM4Nse_88c", "topic": "money", "added": "2026-11-19" },
+    { "id": "QfXBVnLIx6g", "topic": "money", "added": "2026-11-19", "note": "Includes the Strange Noises stash behind Three Sheets liquor." },
+    { "id": "SQPu9zX4JW8", "topic": "money", "added": "2026-11-19" },
+    { "id": "glooyzsVM6g", "topic": "money", "added": "2026-11-19" },
+
+    { "id": "9CjlEheFtCU", "topic": "settings", "added": "2026-11-19", "note": "TV, PS5 and Xbox settings in one video." },
+    { "id": "MkVaiO1rqmw", "topic": "settings", "added": "2026-11-19", "note": "HDR calibration fix." },
+    { "id": "wL19r7tKCHg", "topic": "settings", "added": "2026-11-19" },
+    { "id": "NRIMyHcGToY", "topic": "settings", "added": "2026-11-19" },
+
+    { "id": "Bw9v9L_NAo0", "topic": "cheats", "added": "2026-11-19", "note": "How to unlock and enter cheats." },
+    { "id": "oKznTIvxupk", "topic": "cheats", "added": "2026-11-19" },
+    { "id": "aYFXwLVerdc", "topic": "cheats", "added": "2026-11-19", "note": "Shows all 61 cheats. Only 17 codes are confirmed by multiple written guides so far, so check our list before relying on the rest." }
+  ]
+}

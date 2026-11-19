@@ -204,8 +204,6 @@ def progress_block():
 class Site:
     def __init__(self, drafts=False):
         self.cfg = load_json("data/site.json")
-        self.map = load_json("data/map.json")
-        self.markers = load_json("data/markers.json")["markers"]
         self.checklist = load_json("data/checklist.json")
         self.updates = sorted(load_json("data/updates.json")["updates"], key=lambda u: u["time"], reverse=True)
         self.layout = (ROOT / "src/templates/layout.html").read_text(encoding="utf-8")
@@ -214,6 +212,7 @@ class Site:
         self.search = []        # search index entries
         self.today = dt.date.today().isoformat()
         self.guides = self.load_guides()
+        self.videos = self.load_videos()
 
     # ---- content
 
@@ -248,7 +247,7 @@ class Site:
     # ---- output
 
     def nav(self, current):
-        links = [("/map/", "Map"), ("/guides/", "Guides"), ("/checklist/", "Checklist"),
+        links = [("/guides/", "Guides"), ("/videos/", "Videos"), ("/checklist/", "Checklist"),
                  ("/updates/", "Live log"), ("/tip/", "Tip jar")]
         items = []
         for href, label in links:
@@ -370,19 +369,16 @@ class Site:
     <a class="more" href="/updates/">Full live log &rarr;</a>
   </aside>
   <div class="feature">
-    <a class="feature-media" href="/map/">
-      <img src="/images/leonida-schematic.svg" alt="Schematic map of Leonida" width="2048" height="2048">
-      <span class="tag">Explore Leonida &rarr;</span>
-    </a>
+    {self.video_card(self.videos['featured'], 'is-hero') if self.videos['featured'] else ''}
     <p class="status-pill"><span class="live-dot"></span>Out now &middot; PS5 &amp; Xbox Series X|S</p>
     <h1>{esc(cfg['headline'])}</h1>
     <p class="dek">{esc(cfg['tagline'])}</p>
     <div class="cta">
-      <a class="btn btn-primary" href="/map/">Open the map</a>
-      <a class="btn" href="/guides/gta-6-first-48-hours/">What to do first</a>
+      <a class="btn btn-primary" href="/guides/gta-6-first-48-hours/">What to do first</a>
+      <a class="btn" href="/videos/">Watch the videos</a>
     </div>
     <div class="search hero-search">
-      <input id="search" type="search" placeholder="Search guides, places, cheats…" autocomplete="off" aria-label="Search the site">
+      <input id="search" type="search" placeholder="Search guides, cheats, videos…" autocomplete="off" aria-label="Search the site">
       <div id="search-results" class="search-results" hidden></div>
     </div>
   </div>
@@ -394,7 +390,7 @@ class Site:
 </section>
 <section class="stats" aria-label="What's on the site">
   <a href="/guides/"><b>{len(self.guides)}</b><span>Guides</span></a>
-  <a href="/map/"><b>{len(self.markers)}</b><span>Places mapped</span></a>
+  <a href="/videos/"><b>{len(self.videos['all'])}</b><span>Video guides</span></a>
   <a href="/guides/gta-6-cheats/"><b>{self.confirmed_cheats()}</b><span>Confirmed cheats</span></a>
   <a href="/updates/"><b>{len(self.updates)}</b><span>Live updates</span></a>
 </section>
@@ -480,6 +476,7 @@ class Site:
   </aside>
 </div>
 <div class="tip-inline">{self.tip_card()}</div>
+{self.guide_videos(g["slug"])}
 <section class="read-next">
   <h2 class="rule-head center">Keep reading</h2>
   {self.tiles([(o["num"], o["short"], o["description"], o["url"]) for o in related])}
@@ -533,109 +530,108 @@ class Site:
         text = " ".join(it["text"] for s in c["sections"] for it in s["items"])
         self.write("/checklist/", c["title"], c["intro"], body, search_text=c["intro"] + " " + text)
 
-    def build_map(self):
-        cats = {c["id"]: c for c in self.map["categories"]}
-        regions = self.map["regions"]
-        # static list (for search engines and no-JS readers), grouped by region
-        groups = []
-        for r in regions:
-            ms = [m for m in self.markers if m.get("region") == r["id"]]
-            if not ms:
+    # ---- videos
+
+    def load_videos(self):
+        """Videos come from data/videos.json (id + topic). Titles and channels are looked up from
+        YouTube's official oEmbed endpoint and cached in data/videos-cache.json, so the build
+        works offline and a listing can never show a made-up title."""
+        data = load_json("data/videos.json")
+        cache_path = ROOT / "data/videos-cache.json"
+        cache = json.loads(cache_path.read_text(encoding="utf-8")) if cache_path.exists() else {}
+        changed = False
+        for v in data["videos"]:
+            if v["id"] in cache:
                 continue
-            lis = "".join(
-                f'<li><a href="/map/#m={esc(m["id"])}">{esc(m["title"])}</a>'
-                f'<span class="muted"> · {esc(m.get("place", ""))}</span><br>{esc(m.get("desc", ""))}</li>'
-                for m in ms)
-            groups.append(f'<div class="group"><h3><span class="swatch" style="--c:{r["color"]}"></span>'
-                          f'{esc(r["name"])} ({len(ms)})</h3><ul>{lis}</ul></div>')
-        for m in self.markers:
-            self.search.append({
-                "title": m["title"], "url": f"/map/#m={m['id']}",
-                "type": cats.get(m["category"], {}).get("label", "Map"),
-                "text": (m.get("place", "") + " " + m.get("desc", ""))[:300],
-            })
-        region_cards = "".join(
-            f'<a class="region-card" href="/map/#r={esc(r["id"])}" style="--c:{r["color"]}">'
-            f'<span class="rc-n">{sum(1 for m in self.markers if m.get("region") == r["id"])} places</span>'
-            f'<h3>{esc(r["name"])}</h3><p>{esc(r["desc"])}</p></a>'
-            for r in regions)
-        payload = dict(self.map, markers=self.markers)
-        cfg_json = json.dumps(payload).replace("</", "<\\/")
-        body = article_head("Interactive map", "Leonida",
-                            "Search every place we've confirmed, filter by what you need, and track what you've found. "
-                            "Click a region to explore it.")
+            try:
+                import urllib.parse
+                import urllib.request
+                url = "https://www.youtube.com/oembed?format=json&url=" + urllib.parse.quote(
+                    "https://www.youtube.com/watch?v=" + v["id"])
+                req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+                with urllib.request.urlopen(req, timeout=10) as r:
+                    d = json.load(r)
+                cache[v["id"]] = {"title": d["title"], "channel": d["author_name"], "channelUrl": d["author_url"]}
+                changed = True
+            except Exception as e:  # offline, private or deleted video: skip it rather than guess
+                print(f"  skipping video {v['id']}: {e}")
+        if changed:
+            cache_path.write_text(json.dumps(cache, indent=1, ensure_ascii=False), encoding="utf-8")
+        vids = [dict(v, **cache[v["id"]]) for v in data["videos"] if v["id"] in cache]
+        topics = []
+        for t in data["topics"]:
+            t = dict(t, videos=[v for v in vids if v["topic"] == t["id"]])
+            if t["videos"]:
+                topics.append(t)
+        featured = next((v for v in vids if v["id"] == data.get("featured")), vids[0] if vids else None)
+        by_guide = {t["guide"].rstrip("/").split("/")[-1]: t for t in topics}
+        return {"topics": topics, "all": vids, "featured": featured, "by_guide": by_guide}
+
+    def video_card(self, v, size=""):
+        vid = esc(v["id"])
+        note = f'<p class="vid-note">{esc(v["note"])}</p>' if v.get("note") else ""
+        return (f'<article class="vid {size}">'
+                f'<button type="button" class="vid-play" data-yt="{vid}" aria-label="Play video: {esc(v["title"])}">'
+                f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">'
+                f'<span class="vid-btn" aria-hidden="true"></span></button>'
+                f'<div class="vid-meta"><h3><a href="https://www.youtube.com/watch?v={vid}" target="_blank" rel="noopener">{esc(v["title"])}</a></h3>'
+                f'<p class="vid-ch"><a href="{esc(v["channelUrl"])}" target="_blank" rel="noopener">{esc(v["channel"])}</a> · YouTube</p>'
+                f'{note}</div></article>')
+
+    def video_grid(self, vids):
+        cols = "cols-3" if len(vids) % 3 == 0 else "cols-2"
+        return f'<div class="vid-grid {cols}">' + "".join(self.video_card(v) for v in vids) + "</div>"
+
+    def guide_videos(self, slug):
+        """'Prefer to watch?' strip at the end of a guide, if that guide has a video topic."""
+        t = self.videos["by_guide"].get(slug)
+        if not t:
+            return ""
+        picks = t["videos"][:2]
+        return (f'<section class="read-next guide-videos"><h2 class="rule-head center">Prefer to watch?</h2>'
+                f'{self.video_grid(picks)}'
+                f'<p class="center small"><a href="/videos/#{esc(t["id"])}">More videos: {esc(t["title"])} &rarr;</a></p></section>')
+
+    def build_videos(self):
+        V = self.videos
+        chips = "".join(f'<a class="chip-link" href="#{esc(t["id"])}">{esc(t["title"])} <span>{len(t["videos"])}</span></a>'
+                        for t in V["topics"])
+        sections = "".join(f"""
+<section class="vid-section" id="{esc(t['id'])}">
+  <h2 class="rule-head center">{esc(t['title'])}</h2>
+  <p class="vid-section-dek">{esc(t['desc'])} <a href="{esc(t['guide'])}">Read the written guide &rarr;</a></p>
+  {self.video_grid(t['videos'])}
+</section>""" for t in V["topics"])
+        featured = V["featured"]
+        feat = (f'<section class="vid-featured"><p class="kicker center">Start here</p>'
+                f'{self.video_card(featured, "is-featured")}</section>') if featured else ""
+        body = article_head("Video guides", "Watch how it's done",
+                            "Hand-picked YouTube guides for GTA 6, sorted by what you're trying to do. "
+                            "The written guides have the details we've checked against multiple sources.")
         body += f"""
-<div class="atlas" id="atlas" data-zoom="far">
-  <div id="map" class="atlas-map" role="region" aria-label="Map of Leonida"></div>
-
-  <aside class="atlas-panel" aria-label="Places on the map">
-    <button type="button" class="sheet-handle" data-sheet aria-expanded="false">
-      <span class="grip" aria-hidden="true"></span><span>Places <b id="atlas-count">0</b></span>
-    </button>
-    <div class="panel-head">
-      <label class="atlas-search">
-        <span class="sr-only">Search places</span>
-        <input id="atlas-search" type="search" placeholder="Search places, fences, banks…" autocomplete="off">
-        <kbd aria-hidden="true">/</kbd>
-      </label>
-      <div class="chips-row" id="atlas-chips" role="group" aria-label="Show categories"></div>
-      <div class="panel-meta">
-        <label class="toggle"><input type="checkbox" id="atlas-hide-found"> Hide found</label>
-        <span id="atlas-progress"></span>
-      </div>
-      <div class="found-bar"><span id="atlas-bar"></span></div>
-    </div>
-    <div class="atlas-list" id="atlas-list"></div>
-  </aside>
-
-  <aside class="atlas-detail" id="atlas-detail" hidden aria-live="polite"></aside>
-
-  <div class="atlas-tools" role="toolbar" aria-label="Map controls">
-    <button type="button" data-zoom-in aria-label="Zoom in" title="Zoom in">+</button>
-    <button type="button" data-zoom-out aria-label="Zoom out" title="Zoom out">&minus;</button>
-    <button type="button" data-home aria-label="Reset view" title="Reset view">&#8634;</button>
-    <button type="button" data-full aria-label="Full screen" title="Full screen">&#x26F6;</button>
-  </div>
-  <p class="atlas-note">Schematic atlas, not to scale. Roads are illustrative until traced; pins sit in the right town or district.</p>
-</div>
-<p class="atlas-foot-note">Schematic atlas, not to scale. Roads are illustrative until traced; pins sit in the right town or district.</p>
-
-<div id="edit-box" class="edit-box" hidden>
-  <p class="kicker">Edit mode</p>
-  <div class="edit-modes">
-    <label><input type="radio" name="edit-mode" value="pin" checked> Place a pin</label>
-    <label><input type="radio" name="edit-mode" value="road"> Trace a road</label>
-    <select id="edit-kind" aria-label="Road type"><option value="highway">Highway</option><option value="road">Road</option><option value="rail">Railway</option><option value="tunnel">Tunnel</option></select>
-    <button type="button" class="btn-sm" id="edit-undo">Undo point</button>
-    <button type="button" class="btn-sm btn-accent" id="edit-finish">Finish road</button>
-    <span class="small muted" id="edit-count"></span>
-  </div>
-  <p class="small"><b>Place a pin:</b> click once and the JSON is copied for <code>data/markers.json</code>.
-  <b>Trace a road:</b> click along a road you've driven in-game (zoom in for accuracy), then press Finish or Enter. Backspace undoes a point. Paste the result into the <code>roads</code> list in <code>data/map.json</code>, then delete any illustrative road it replaces.</p>
-  <textarea id="edit-out" rows="6" readonly></textarea>
-</div>
-
-<section class="region-strip">
-  <h2 class="rule-head center">Explore by region</h2>
-  <div class="region-grid">{region_cards}</div>
+<nav class="chip-nav" aria-label="Video topics">{chips}</nav>
+{feat}
+{self.ad('videos-top')}
+{sections}
+<section class="band">
+  <p class="kicker">Reader picks</p>
+  <h2>Seen a great guide video?</h2>
+  <p>Send us the link. We add videos that are accurate, spoiler-light and not clickbait.</p>
+  <a class="btn btn-primary" href="/submit/">Suggest a video</a>
 </section>
-
-<section class="map-list">
-  <h2 class="rule-head center">Every place on the map</h2>
-  <div class="cols">{''.join(groups)}</div>
-  <p class="center small muted">Found something we're missing? <a href="/submit/">Submit a location</a>.</p>
-</section>
-<script type="application/json" id="map-config">{cfg_json}</script>"""
-        head = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">'
-        scripts = ('<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>'
-                   '<script src="/assets/map.js" defer></script>')
-        self.write("/map/", "GTA 6 Map of Leonida: Interactive Locations", 
-                   "Interactive GTA 6 map of Leonida: fences, bank vaults, safehouses, money spots and missables. Search, filter and track what you've found.",
-                   body, head_extra=head, scripts=scripts, seo_title="GTA 6 Map: Interactive Leonida Map")
+<p class="fine center">Videos belong to their creators and play from YouTube. We don't earn anything from them and aren't affiliated with the channels.</p>"""
+        for v in V["all"]:
+            self.search.append({"title": v["title"], "url": f"/videos/#{v['topic']}", "type": "Video",
+                                "text": v["channel"] + " " + v.get("note", "")})
+        self.write("/videos/", "GTA 6 video guides: cheats, money, settings and more",
+                   "Hand-picked GTA 6 YouTube guides by topic: beginner tips, Jason's house railing, money methods, settings and HDR, and cheats.",
+                   body, seo_title="GTA 6 Video Guides: Cheats, Money, Settings & Tips",
+                   lastmod=max(v.get("added", self.today) for v in V["all"]) if V["all"] else None)
 
     def build_submit(self):
-        opts = "".join(f'<option value="{esc(c["id"])}">{esc(c["label"])}</option>'
-                       for c in self.map["categories"])
+        opts = "".join(f'<option value="{v}">{label}</option>' for v, label in [
+            ("money", "Money method"), ("cheat", "Cheat code"), ("secret", "Secret or easter egg"),
+            ("location", "Location or collectible"), ("video", "Video worth adding"), ("tip", "Tip or trick")])
         body = article_head("Reader finds", "Submit a find",
                             "Found a collectible, money method, secret or mistake on the site? We check every submission, and credit you if you want.")
         body += f"""
@@ -653,8 +649,8 @@ class Site:
 </div>"""
         self.write("/submit/", "Submit a GTA 6 find", f"Send a location, money method or secret to {self.cfg['name']}.", body)
         self.write("/thanks/", "Thanks!", "Submission received.",
-                   article_head("Reader finds", "Got it, thanks.", "We check every find before it goes on the map.")
-                   + '<div class="cta"><a class="btn" href="/map/">Back to the map</a></div>', index=False)
+                   article_head("Reader finds", "Got it, thanks.", "We check every submission before it goes on the site.")
+                   + '<div class="cta"><a class="btn" href="/guides/">Back to the guides</a></div>', index=False)
 
     # ---- tip jar
 
@@ -744,8 +740,8 @@ class Site:
     def build_404(self):
         self.write("/404.html", "Page not found", "Page not found.",
                    article_head("Error 404", "Off the map", "That page doesn't exist, or it moved.")
-                   + '<div class="cta"><a class="btn btn-primary" href="/map/">Open the map</a>'
-                     '<a class="btn" href="/guides/">Browse guides</a></div>',
+                   + '<div class="cta"><a class="btn btn-primary" href="/guides/">Browse guides</a>'
+                     '<a class="btn" href="/videos/">Watch videos</a></div>',
                    index=False)
 
     def build_meta_files(self):
@@ -789,10 +785,8 @@ class Site:
             shutil.rmtree(DIST)
         shutil.copytree(ROOT / "static", DIST)
         shutil.copytree(ROOT / "src/assets", DIST / "assets")
-        (DIST / "data").mkdir()
-        shutil.copy(ROOT / "data/markers.json", DIST / "data/markers.json")
         self.build_home()
-        self.build_map()
+        self.build_videos()
         self.build_checklist()
         self.build_guides()
         self.build_updates()

@@ -1,0 +1,3 @@
+# Netlify redirects. The interactive map was retired in favour of video guides.
+/map     /videos/  301
+/map/*   /videos/  301
